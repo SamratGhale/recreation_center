@@ -10,11 +10,26 @@ using System.Windows.Forms;
 
 namespace recreation_center
 {
+    
     public partial class Form2 : Form
     {
-        public Form2()
+        private GroupsArray menuArr;
+        String userName;
+
+        public Form2(String _userName)
         {
             InitializeComponent();
+            this.userName = _userName;
+            userNameLabel.Text = _userName;
+            menuArr = new GroupsArray();
+            InitilizeMenu();
+        }
+        void InitilizeMenu()
+        {
+            foreach(GroupRates gr in menuArr.groupArr)
+            {
+                MenuTable.Rows.Add(gr.getRowValues());
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -30,5 +45,7 @@ namespace recreation_center
             base.OnClosed(e);
             Application.Exit();
         }
+
+
     }
 }

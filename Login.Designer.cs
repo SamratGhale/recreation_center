@@ -77,7 +77,7 @@ namespace recreation_center
             // LoginButton
             // 
             this.LoginButton.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoginButton.Location = new System.Drawing.Point(161, 299);
+            this.LoginButton.Location = new System.Drawing.Point(160, 284);
             this.LoginButton.Name = "LoginButton";
             this.LoginButton.Size = new System.Drawing.Size(93, 34);
             this.LoginButton.TabIndex = 4;
@@ -101,8 +101,8 @@ namespace recreation_center
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(526, 417);
-            this.Controls.Add(this.isAdmin);
             this.Controls.Add(this.LoginButton);
+            this.Controls.Add(this.isAdmin);
             this.Controls.Add(this.passwordInput);
             this.Controls.Add(this.userNameInput);
             this.Controls.Add(this.passwordLabel);
