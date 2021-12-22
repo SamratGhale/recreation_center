@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "recreation_center", "recreation_center.csproj", "{F30944E9-5980-43D2-B7FD-1CEE6BD34CC0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F30944E9-5980-43D2-B7FD-1CEE6BD34CC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F30944E9-5980-43D2-B7FD-1CEE6BD34CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F30944E9-5980-43D2-B7FD-1CEE6BD34CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F30944E9-5980-43D2-B7FD-1CEE6BD34CC0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDB9DF3D-557A-411E-82C1-2A05DB6735C9}
+	EndGlobalSection
+EndGlobal

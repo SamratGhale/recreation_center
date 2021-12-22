@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<users>
+  <Admin>
+    <username>samrat</username>
+    <password>9822</password>
+  </Admin>
+  <Staff>
+    <username>kaushal</username>
+    <password>9818</password>
+  </Staff>
+  <Staff>
+    <username>apple</username>
+    <password>mango</password>
+  </Staff>
+</users>
