@@ -26,7 +26,7 @@ namespace recreation_center
         }
         void InitilizeMenu()
         {
-            foreach(GroupRates gr in menuArr.groupArr)
+            foreach (GroupRates gr in menuArr.groupArr)
             {
                 MenuTable.Rows.Add(gr.getRowValues());
             }
@@ -46,6 +46,10 @@ namespace recreation_center
             Application.Exit();
         }
 
-
+        private void UpdateMenu_Click(object sender, EventArgs e)
+        {
+            (new UpdateRate(menuArr)).Show();
+            //this.Hide();
+        }
     }
 }
