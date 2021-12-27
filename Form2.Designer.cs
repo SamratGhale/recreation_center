@@ -43,6 +43,7 @@ namespace recreation_center
             this.threeHrs = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WholeDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UpdateMenu = new System.Windows.Forms.Button();
+            this.refreshButton = new System.Windows.Forms.Button();
             this.MainTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -176,11 +177,23 @@ namespace recreation_center
             this.UpdateMenu.UseVisualStyleBackColor = true;
             this.UpdateMenu.Click += new System.EventHandler(this.UpdateMenu_Click);
             // 
+            // refreshButton
+            // 
+            this.refreshButton.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.refreshButton.Location = new System.Drawing.Point(448, 449);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(96, 38);
+            this.refreshButton.TabIndex = 5;
+            this.refreshButton.Text = "Refresh";
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 499);
+            this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.UpdateMenu);
             this.Controls.Add(this.MainTab);
             this.Controls.Add(this.userNameLabel);
@@ -214,5 +227,6 @@ namespace recreation_center
         private System.Windows.Forms.DataGridViewTextBoxColumn threeHrs;
         private System.Windows.Forms.DataGridViewTextBoxColumn WholeDay;
         private System.Windows.Forms.Button UpdateMenu;
+        private System.Windows.Forms.Button refreshButton;
     }
 }

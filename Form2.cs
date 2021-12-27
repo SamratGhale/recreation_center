@@ -22,10 +22,15 @@ namespace recreation_center
             this.userName = _userName;
             userNameLabel.Text = _userName;
             menuArr = new GroupsArray();
-            InitilizeMenu();
+            RefreshMenu();
+            if(userName != "Admin")
+            {
+                UpdateMenu.Hide();
+            }
         }
-        void InitilizeMenu()
-        {
+
+        void RefreshMenu(){
+            MenuTable.Rows.Clear();
             foreach (GroupRates gr in menuArr.groupArr)
             {
                 MenuTable.Rows.Add(gr.getRowValues());
@@ -48,8 +53,13 @@ namespace recreation_center
 
         private void UpdateMenu_Click(object sender, EventArgs e)
         {
-            (new UpdateRate(menuArr)).Show();
+            (new UpdateRate(ref menuArr)).Show();
             //this.Hide();
+        }
+
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            RefreshMenu();
         }
     }
 }

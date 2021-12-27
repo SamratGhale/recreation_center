@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 using System.Threading.Tasks;
+using EnumsNET;
 
 namespace recreation_center
 {
@@ -58,7 +59,7 @@ namespace recreation_center
         //Variables
         private GroupType Age       { get; set; }
         private bool      IsWeekend { get; set; }
-        private Rates     Rate      { get; set; }
+        public Rates     Rate      { get; set; }
 
         //Constructor
         public GroupRates(GroupType ageGroup, bool isWeekend)
@@ -69,10 +70,11 @@ namespace recreation_center
         }
         public String[] getRowValues()
         {
-            String[] ret =   { Age.ToString()};
+            String[] ret =   { ((GroupType)Age).AsString(EnumFormat.Description) };
             ret.Concat(Rate.getRatesArray());
             return ret;
         }
+       
     }
 
     public class GroupsArray{

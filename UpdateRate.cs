@@ -12,14 +12,16 @@ namespace recreation_center
 {
     public partial class UpdateRate : Form
     {
-        public UpdateRate(GroupsArray menuArray)
+        GroupsArray menuArray;
+        public UpdateRate(ref GroupsArray _menuArray)
         {
             InitializeComponent();
-            foreach (GroupRates gr in menuArray.groupArr)
+            foreach (GroupRates gr in _menuArray.groupArr)
             {
                 groupDropDown.Items.Add(gr.getRowValues()[0]);
             }
-            menuArray.groupArr.Add(new GroupRates(GroupType.Adult, true));
+            this.menuArray = _menuArray;
+            _menuArray.groupArr.Add(new GroupRates(GroupType.Adult, true));
             groupDropDown.SelectedIndex= 0;
         }
         protected override void OnClosed(EventArgs e)
@@ -29,7 +31,13 @@ namespace recreation_center
 
         private void groupDropDown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            GroupRates gr       = menuArray.groupArr[groupDropDown.SelectedIndex];
+
+            oneHourText.Text    = gr.Rate.One_hr.ToString();
+            twoHoursText.Text   = gr.Rate.Two_hr.ToString();
+            fourHoursText.Text  = gr.Rate.Four_hr.ToString();
+            wholeDayText.Text   = gr.Rate.Whole_day.ToString();
+
         }
     }
 }
