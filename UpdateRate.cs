@@ -24,20 +24,25 @@ namespace recreation_center
             _menuArray.groupArr.Add(new GroupRates(GroupType.Adult, true));
             groupDropDown.SelectedIndex= 0;
         }
-        protected override void OnClosed(EventArgs e)
-        {
-            Application.Exit();
-        }
 
         private void groupDropDown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GroupRates gr       = menuArray.groupArr[groupDropDown.SelectedIndex];
+            GroupRates gr      = menuArray.groupArr[groupDropDown.SelectedIndex];
+            oneHourNum.Text    = gr.Rate.One_hr.ToString();
+            twoHoursNum.Text   = gr.Rate.Two_hr.ToString();
+            fourHoursNum.Text  = gr.Rate.Four_hr.ToString();
+            wholeDayNum.Text   = gr.Rate.Whole_day.ToString();
+        }
 
-            oneHourText.Text    = gr.Rate.One_hr.ToString();
-            twoHoursText.Text   = gr.Rate.Two_hr.ToString();
-            fourHoursText.Text  = gr.Rate.Four_hr.ToString();
-            wholeDayText.Text   = gr.Rate.Whole_day.ToString();
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            GroupRates gr = menuArray.groupArr[groupDropDown.SelectedIndex];
+            gr.Rate.One_hr    = int.Parse(oneHourNum.Text);
+            gr.Rate.Two_hr    = int.Parse(twoHoursNum.Text);
+            gr.Rate.Four_hr   = int.Parse(fourHoursNum.Text);
+            gr.Rate.Whole_day = int.Parse(wholeDayNum.Text);
+            MessageBox.Show("The rates were updated",
+    "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

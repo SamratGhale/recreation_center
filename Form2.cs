@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -60,6 +63,22 @@ namespace recreation_center
         private void refreshButton_Click(object sender, EventArgs e)
         {
             RefreshMenu();
+        }
+
+        private void saveRateButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog SaveFileDialog1 = new SaveFileDialog();
+            SaveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            SaveFileDialog1.FilterIndex = 2;
+            SaveFileDialog1.RestoreDirectory = true;
+            SaveFileDialog1.InitialDirectory = ".";
+            if(SaveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Stream stream = new FileStream(SaveFileDialog1.FileName.ToString(), FileMode.Create, FileAccess.Write);
+                IFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(stream, menuArr);
+                stream.Close();
+            }
         }
     }
 }

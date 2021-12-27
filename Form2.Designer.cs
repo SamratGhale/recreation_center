@@ -37,13 +37,14 @@ namespace recreation_center
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.MenuTable = new System.Windows.Forms.DataGridView();
+            this.UpdateMenu = new System.Windows.Forms.Button();
+            this.refreshButton = new System.Windows.Forms.Button();
             this.TicketRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.oneHr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.thoHr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.threeHrs = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WholeDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UpdateMenu = new System.Windows.Forms.Button();
-            this.refreshButton = new System.Windows.Forms.Button();
+            this.saveRateButton = new System.Windows.Forms.Button();
             this.MainTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -62,10 +63,10 @@ namespace recreation_center
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(690, 448);
+            this.button1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(782, 9);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 39);
+            this.button1.Size = new System.Drawing.Size(78, 35);
             this.button1.TabIndex = 1;
             this.button1.Text = "Logout";
             this.button1.UseVisualStyleBackColor = true;
@@ -84,19 +85,20 @@ namespace recreation_center
             // 
             this.MainTab.Controls.Add(this.tabPage1);
             this.MainTab.Controls.Add(this.tabPage2);
-            this.MainTab.Location = new System.Drawing.Point(2, 49);
+            this.MainTab.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MainTab.Location = new System.Drawing.Point(22, 50);
             this.MainTab.Name = "MainTab";
             this.MainTab.SelectedIndex = 0;
-            this.MainTab.Size = new System.Drawing.Size(795, 393);
+            this.MainTab.Size = new System.Drawing.Size(819, 444);
             this.MainTab.TabIndex = 3;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(787, 367);
+            this.tabPage1.Size = new System.Drawing.Size(811, 412);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -106,17 +108,21 @@ namespace recreation_center
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(212, 109);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(63, 19);
             this.label1.TabIndex = 0;
             this.label1.Text = "label1";
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.saveRateButton);
+            this.tabPage2.Controls.Add(this.refreshButton);
             this.tabPage2.Controls.Add(this.MenuTable);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Controls.Add(this.UpdateMenu);
+            this.tabPage2.Font = new System.Drawing.Font("SF Mono", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage2.Location = new System.Drawing.Point(4, 28);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(787, 367);
+            this.tabPage2.Size = new System.Drawing.Size(811, 412);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Menu";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -124,6 +130,8 @@ namespace recreation_center
             // MenuTable
             // 
             this.MenuTable.AllowUserToOrderColumns = true;
+            this.MenuTable.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.MenuTable.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.MenuTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MenuTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TicketRate,
@@ -134,42 +142,13 @@ namespace recreation_center
             this.MenuTable.Enabled = false;
             this.MenuTable.Location = new System.Drawing.Point(16, 6);
             this.MenuTable.Name = "MenuTable";
-            this.MenuTable.Size = new System.Drawing.Size(751, 343);
+            this.MenuTable.Size = new System.Drawing.Size(793, 250);
             this.MenuTable.TabIndex = 0;
-            // 
-            // TicketRate
-            // 
-            this.TicketRate.HeaderText = "Ticket Rate";
-            this.TicketRate.Name = "TicketRate";
-            this.TicketRate.ReadOnly = true;
-            // 
-            // oneHr
-            // 
-            this.oneHr.HeaderText = "1-2 Hr";
-            this.oneHr.Name = "oneHr";
-            this.oneHr.ReadOnly = true;
-            // 
-            // thoHr
-            // 
-            this.thoHr.HeaderText = "2-4 Hrs";
-            this.thoHr.Name = "thoHr";
-            this.thoHr.ReadOnly = true;
-            // 
-            // threeHrs
-            // 
-            this.threeHrs.HeaderText = "4-6Hrs";
-            this.threeHrs.Name = "threeHrs";
-            this.threeHrs.ReadOnly = true;
-            // 
-            // WholeDay
-            // 
-            this.WholeDay.HeaderText = "Whole Day";
-            this.WholeDay.Name = "WholeDay";
             // 
             // UpdateMenu
             // 
             this.UpdateMenu.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UpdateMenu.Location = new System.Drawing.Point(550, 449);
+            this.UpdateMenu.Location = new System.Drawing.Point(645, 278);
             this.UpdateMenu.Name = "UpdateMenu";
             this.UpdateMenu.Size = new System.Drawing.Size(105, 38);
             this.UpdateMenu.TabIndex = 4;
@@ -180,7 +159,7 @@ namespace recreation_center
             // refreshButton
             // 
             this.refreshButton.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.refreshButton.Location = new System.Drawing.Point(448, 449);
+            this.refreshButton.Location = new System.Drawing.Point(495, 278);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(96, 38);
             this.refreshButton.TabIndex = 5;
@@ -188,13 +167,57 @@ namespace recreation_center
             this.refreshButton.UseVisualStyleBackColor = true;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
+            // TicketRate
+            // 
+            this.TicketRate.FillWeight = 200F;
+            this.TicketRate.HeaderText = "Ticket Rate";
+            this.TicketRate.Name = "TicketRate";
+            this.TicketRate.ReadOnly = true;
+            this.TicketRate.Width = 150;
+            // 
+            // oneHr
+            // 
+            this.oneHr.HeaderText = "1-2 Hr";
+            this.oneHr.Name = "oneHr";
+            this.oneHr.ReadOnly = true;
+            this.oneHr.Width = 150;
+            // 
+            // thoHr
+            // 
+            this.thoHr.HeaderText = "2-4 Hrs";
+            this.thoHr.Name = "thoHr";
+            this.thoHr.ReadOnly = true;
+            this.thoHr.Width = 150;
+            // 
+            // threeHrs
+            // 
+            this.threeHrs.HeaderText = "4-6Hrs";
+            this.threeHrs.Name = "threeHrs";
+            this.threeHrs.ReadOnly = true;
+            this.threeHrs.Width = 150;
+            // 
+            // WholeDay
+            // 
+            this.WholeDay.HeaderText = "Whole Day";
+            this.WholeDay.Name = "WholeDay";
+            this.WholeDay.Width = 150;
+            // 
+            // saveRateButton
+            // 
+            this.saveRateButton.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveRateButton.Location = new System.Drawing.Point(329, 278);
+            this.saveRateButton.Name = "saveRateButton";
+            this.saveRateButton.Size = new System.Drawing.Size(96, 38);
+            this.saveRateButton.TabIndex = 6;
+            this.saveRateButton.Text = "Save";
+            this.saveRateButton.UseVisualStyleBackColor = true;
+            this.saveRateButton.Click += new System.EventHandler(this.saveRateButton_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 499);
-            this.Controls.Add(this.refreshButton);
-            this.Controls.Add(this.UpdateMenu);
+            this.ClientSize = new System.Drawing.Size(872, 510);
             this.Controls.Add(this.MainTab);
             this.Controls.Add(this.userNameLabel);
             this.Controls.Add(this.button1);
@@ -221,12 +244,13 @@ namespace recreation_center
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView MenuTable;
+        private System.Windows.Forms.Button UpdateMenu;
+        private System.Windows.Forms.Button refreshButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn TicketRate;
         private System.Windows.Forms.DataGridViewTextBoxColumn oneHr;
         private System.Windows.Forms.DataGridViewTextBoxColumn thoHr;
         private System.Windows.Forms.DataGridViewTextBoxColumn threeHrs;
         private System.Windows.Forms.DataGridViewTextBoxColumn WholeDay;
-        private System.Windows.Forms.Button UpdateMenu;
-        private System.Windows.Forms.Button refreshButton;
+        private System.Windows.Forms.Button saveRateButton;
     }
 }

@@ -10,6 +10,7 @@ using EnumsNET;
 namespace recreation_center
 {
     //Enums for AgeGroup
+    [Serializable]
     public enum GroupType
     {
         [Description("Child (<3)")]
@@ -19,8 +20,17 @@ namespace recreation_center
         [Description("Adult (16-60)")]
         Adult,
         [Description("Elder (60+)")]
-        Elder
+        Elder,
+        [Description("Group of 5")]
+        GroupOfFive,
+        [Description("Group of 10")]
+        GroupOfTen,
+        [Description("Group of 15")]
+        GroupOfFifteen,
+        [Description("Group of 20")]
+        GroupOfTwenty
     }
+    [Serializable]
     public class Rates{
         public int One_hr     {get;set;}
         public int Two_hr     {get;set;}
@@ -54,12 +64,13 @@ namespace recreation_center
         }
     }
 
+    [Serializable]
     public class GroupRates
     {
         //Variables
         private GroupType Age       { get; set; }
         private bool      IsWeekend { get; set; }
-        public Rates     Rate      { get; set; }
+        public Rates      Rate      { get; set; }
 
         //Constructor
         public GroupRates(GroupType ageGroup, bool isWeekend)
@@ -71,12 +82,13 @@ namespace recreation_center
         public String[] getRowValues()
         {
             String[] ret =   { ((GroupType)Age).AsString(EnumFormat.Description) };
-            ret.Concat(Rate.getRatesArray());
+            ret          =   ret.Concat(Rate.getRatesArray()).ToArray();
             return ret;
         }
        
     }
 
+    [Serializable]
     public class GroupsArray{
         public List<GroupRates> groupArr;
 
