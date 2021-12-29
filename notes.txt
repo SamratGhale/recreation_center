@@ -1,8 +1,3 @@
-Take the value from the form and update on update button click;
-
-Minor bug fixes like closing the forms and showing the tabs for different
-users;
-
-Seralize and deseralize;
+deseralize;
 
 /Transactions (make a class and form and serealize)

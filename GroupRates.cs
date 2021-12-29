@@ -68,16 +68,18 @@ namespace recreation_center
     public class GroupRates
     {
         //Variables
-        private GroupType Age       { get; set; }
-        private bool      IsWeekend { get; set; }
+        public GroupType Age       { get; set; }
         public Rates      Rate      { get; set; }
 
         //Constructor
-        public GroupRates(GroupType ageGroup, bool isWeekend)
+        public GroupRates(GroupType ageGroup)
         {
             this.Age       = ageGroup;
-            this.IsWeekend = isWeekend;
             this.Rate      = new Rates();
+        }
+        private GroupRates()
+        {
+
         }
         public String[] getRowValues()
         {
@@ -85,7 +87,7 @@ namespace recreation_center
             ret          =   ret.Concat(Rate.getRatesArray()).ToArray();
             return ret;
         }
-       
+
     }
 
     [Serializable]
@@ -93,10 +95,43 @@ namespace recreation_center
         public List<GroupRates> groupArr;
 
         public GroupsArray(){
+
+        }
+        //Initilizes the group array with zero
+        public void initilizeWithZero()
+        {
             groupArr = new List<GroupRates>();
-            foreach(GroupType gt in Enum.GetValues(typeof(GroupType))){
-                groupArr.Add(new GroupRates(gt, false));
+            foreach (GroupType gt in Enum.GetValues(typeof(GroupType)))
+            {
+                groupArr.Add(new GroupRates(gt));
             }
+        }
+        public double GetTotal(Visitor visitor){
+            double price = 0;
+            if(visitor.Completed == false){
+                return -1;
+            }
+            foreach(GroupRates gr in groupArr){
+                if(gr.Age == visitor.Type){
+                    TimeSpan result = visitor.InTime.Subtract(visitor.OutTime);
+                    if(result.Hours <= 1){
+                        price = gr.Rate.One_hr; 
+                    }
+                    else if(result.Hours <= 2){
+                        price = gr.Rate.Two_hr; 
+                    }
+                    else if(result.Hours <= 4){
+                        price = gr.Rate.Four_hr; 
+                    }
+                    else {
+                        price = gr.Rate.Whole_day; 
+                    }
+                }
+            }
+            if(visitor.IsWeekend){
+                price += price * 0.2;
+            }
+            return price;
         }
     }
 }

@@ -21,7 +21,6 @@ namespace recreation_center
                 groupDropDown.Items.Add(gr.getRowValues()[0]);
             }
             this.menuArray = _menuArray;
-            _menuArray.groupArr.Add(new GroupRates(GroupType.Adult, true));
             groupDropDown.SelectedIndex= 0;
         }
 
