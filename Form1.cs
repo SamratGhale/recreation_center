@@ -19,6 +19,12 @@ namespace recreation_center
             InitializeComponent();
             this.v = _v;
             this.menuArr = _menuArr;
+
+            foreach (GroupRates gr in menuArr.groupArr)
+            {
+                ageGroupType.Items.Add(gr.getRowValues()[0]);
+            }
+            ageGroupType.SelectedIndex = ((int)v.Type);
             refresh();
         }
 
@@ -43,11 +49,6 @@ namespace recreation_center
                 checkOutLabel.Visible = false;
                 TotalFee.Visible = false;
             }
-            foreach (GroupRates gr in menuArr.groupArr)
-            {
-                ageGroupType.Items.Add(gr.getRowValues()[0]);
-            }
-            ageGroupType.SelectedIndex= ((int)v.Type);
 
         }
 

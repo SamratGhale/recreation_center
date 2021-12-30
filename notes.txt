@@ -1,3 +1,4 @@
-deseralize;
-
-/Transactions (make a class and form and serealize)
+sort by name and date
+deseralize and serialize record
+chart bar chart by week
+delete 
