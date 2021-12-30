@@ -30,7 +30,6 @@ namespace recreation_center
             menuArr = new GroupsArray();
             visitors = new List<Visitor>();
             menuArr.initilizeWithZero();
-            RefreshMenu();
             if(userName != "Admin")
             {
                 UpdateMenu.Hide();
@@ -40,6 +39,9 @@ namespace recreation_center
                 ageGroupBox.Items.Add(gr.getRowValues()[0]);
             }
             ageGroupBox.SelectedIndex = 0;
+            init();
+            RefreshMenu();
+            RefreshRecords();
         }
 
         void RefreshMenu(){
@@ -55,6 +57,9 @@ namespace recreation_center
             foreach (Visitor vr in visitors)
             {
                 VisitorTable.Rows.Add(vr.getValues());
+                if (vr.Completed)
+                {
+                }
             }
         }
 
@@ -93,6 +98,21 @@ namespace recreation_center
                 formatter.Serialize(stream, menuArr);
                 stream.Close();
             }
+        }
+
+        void init(){
+                visitors.Add(new Visitor(0, "samrat ghale", GroupType.Child, DateTime.Today,  DateTime.Now , DateTime.Now, true));
+                visitors[visitors.Count-1].TotalFee = menuArr.GetTotal(visitors[visitors.Count-1]);
+                visitors.Add(new Visitor(2, "samrat ghale", GroupType.Adult, DateTime.Today , DateTime.Now , DateTime.Now, false));
+                visitors[visitors.Count-1].TotalFee = menuArr.GetTotal(visitors[visitors.Count-1]);
+                visitors.Add(new Visitor(3, "samrat ghale", GroupType.Elder, DateTime.Today , DateTime.Now , DateTime.Now, true));
+                visitors[visitors.Count-1].TotalFee = menuArr.GetTotal(visitors[visitors.Count-1]);
+                visitors.Add(new Visitor(4, "samrat ghale", GroupType.GroupOfTen, DateTime.Today , DateTime.Now , DateTime.Now, true));
+                visitors[visitors.Count-1].TotalFee = menuArr.GetTotal(visitors[visitors.Count-1]);
+                visitors.Add(new Visitor(5, "samrat ghale", GroupType.Child, DateTime.Today , DateTime.Now ,  true));
+                visitors.Add(new Visitor(6, "samrat ghale", GroupType.Child, DateTime.Today , DateTime.Now ,  false));
+                visitors.Add(new Visitor(7, "samrat ghale", GroupType.Child, DateTime.Today , DateTime.Now ,  true));
+                visitors.Add(new Visitor(8, "samrat ghale", GroupType.Child, DateTime.Today , DateTime.Now ,  true));
         }
 
         private void menuItem6_Click(object sender, EventArgs e)
@@ -164,10 +184,11 @@ namespace recreation_center
         {
             if (completedBox.Checked)
             {
-                Visitor v = new Visitor(visitorNameBox.Text, (GroupType)ageGroupBox.SelectedIndex, DatePicker.Value, checkInBox.Value, checkOutBox.Value, isWeekendBox.Checked );
+                Visitor v = new Visitor(visitors.Count + 1, visitorNameBox.Text, (GroupType)ageGroupBox.SelectedIndex, DatePicker.Value, checkInBox.Value, checkOutBox.Value, isWeekendBox.Checked );
+                v.TotalFee = menuArr.GetTotal(v);
                 this.visitors.Add(v);
             }else{
-                Visitor v = new Visitor(visitorNameBox.Text, (GroupType)ageGroupBox.SelectedIndex, DatePicker.Value, checkInBox.Value, isWeekendBox.Checked);
+                Visitor v = new Visitor(visitors.Count + 1,visitorNameBox.Text, (GroupType)ageGroupBox.SelectedIndex, DatePicker.Value, checkInBox.Value, isWeekendBox.Checked);
                 this.visitors.Add(v);
             }
             RefreshRecords();
@@ -185,6 +206,21 @@ namespace recreation_center
                 checkOutBox.Hide();
                 checkOutTimeLabel.Hide();
             }
+        }
+
+        private void VisitorTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex == -1)
+            {
+                return;
+            }
+            Visitor v = visitors.First(item => item.VisitorId == int.Parse(VisitorTable.Rows[e.RowIndex].Cells[0].Value.ToString()));
+            (new Checkout(menuArr, ref v)).ShowDialog();
+        }
+
+        private void refreshVisitors_Click(object sender, EventArgs e)
+        {
+            RefreshRecords();
         }
     }
 }

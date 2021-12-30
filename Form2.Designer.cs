@@ -3,6 +3,8 @@ namespace recreation_center
 {
     partial class Form2
     {
+        private const string V = "Form2";
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -60,14 +62,17 @@ namespace recreation_center
             this.WholeDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UpdateMenu = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.refreshVisitors = new System.Windows.Forms.Button();
             this.VisitorTable = new System.Windows.Forms.DataGridView();
+            this.VisitorId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isWeeknd = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isWeekend = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Completed = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CheckInTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CheckoutTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalFee = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem3 = new System.Windows.Forms.MenuItem();
@@ -127,7 +132,7 @@ namespace recreation_center
             this.MainTab.Location = new System.Drawing.Point(22, 50);
             this.MainTab.Name = "MainTab";
             this.MainTab.SelectedIndex = 0;
-            this.MainTab.Size = new System.Drawing.Size(988, 427);
+            this.MainTab.Size = new System.Drawing.Size(1238, 570);
             this.MainTab.TabIndex = 3;
             // 
             // tabPage1
@@ -150,7 +155,7 @@ namespace recreation_center
             this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(970, 395);
+            this.tabPage1.Size = new System.Drawing.Size(1230, 471);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -301,7 +306,7 @@ namespace recreation_center
             this.tabPage2.Location = new System.Drawing.Point(4, 28);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(970, 395);
+            this.tabPage2.Size = new System.Drawing.Size(1230, 538);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Menu";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -382,46 +387,69 @@ namespace recreation_center
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.refreshVisitors);
             this.tabPage3.Controls.Add(this.VisitorTable);
             this.tabPage3.Location = new System.Drawing.Point(4, 28);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(980, 395);
+            this.tabPage3.Size = new System.Drawing.Size(1230, 538);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Visistors";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // refreshVisitors
+            // 
+            this.refreshVisitors.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.refreshVisitors.Location = new System.Drawing.Point(918, 503);
+            this.refreshVisitors.Name = "refreshVisitors";
+            this.refreshVisitors.Size = new System.Drawing.Size(89, 28);
+            this.refreshVisitors.TabIndex = 4;
+            this.refreshVisitors.Text = "refresh";
+            this.refreshVisitors.UseVisualStyleBackColor = true;
+            this.refreshVisitors.Click += new System.EventHandler(this.refreshVisitors_Click);
             // 
             // VisitorTable
             // 
             this.VisitorTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.VisitorTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.VisitorId,
             this.Name,
             this.Group,
-            this.isWeeknd,
+            this.isWeekend,
             this.Completed,
             this.CheckInTime,
             this.CheckoutTime,
-            this.Date});
-            this.VisitorTable.Location = new System.Drawing.Point(6, 6);
+            this.Date,
+            this.TotalFee});
+            this.VisitorTable.Location = new System.Drawing.Point(6, 41);
             this.VisitorTable.Name = "VisitorTable";
-            this.VisitorTable.Size = new System.Drawing.Size(992, 390);
+            this.VisitorTable.Size = new System.Drawing.Size(1221, 456);
             this.VisitorTable.TabIndex = 0;
+            this.VisitorTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.VisitorTable_CellContentClick);
+            // 
+            // VisitorId
+            // 
+            this.VisitorId.HeaderText = "Visitor Id";
+            this.VisitorId.Name = "VisitorId";
+            this.VisitorId.Width = 80;
             // 
             // Name
             // 
             this.Name.HeaderText = "Visitor Name";
             this.Name.Name = "Name";
+            this.Name.Width = 180;
             // 
             // Group
             // 
             this.Group.HeaderText = "Age Group/ Group Size";
             this.Group.Name = "Group";
-            this.Group.Width = 200;
+            this.Group.Width = 250;
             // 
-            // isWeeknd
+            // isWeekend
             // 
-            this.isWeeknd.HeaderText = "Weeknd";
-            this.isWeeknd.Name = "isWeeknd";
+            this.isWeekend.HeaderText = "Weekend";
+            this.isWeekend.Name = "isWeekend";
+            this.isWeekend.Width = 90;
             // 
             // Completed
             // 
@@ -432,18 +460,25 @@ namespace recreation_center
             // 
             this.CheckInTime.HeaderText = "Check In Time";
             this.CheckInTime.Name = "CheckInTime";
-            this.CheckInTime.Width = 180;
+            this.CheckInTime.Width = 160;
             // 
             // CheckoutTime
             // 
             this.CheckoutTime.HeaderText = "CheckoutTime";
             this.CheckoutTime.Name = "CheckoutTime";
-            this.CheckoutTime.Width = 150;
+            this.CheckoutTime.ReadOnly = true;
+            this.CheckoutTime.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CheckoutTime.Width = 120;
             // 
             // Date
             // 
             this.Date.HeaderText = "Date";
             this.Date.Name = "Date";
+            // 
+            // TotalFee
+            // 
+            this.TotalFee.HeaderText = "Total Fee";
+            this.TotalFee.Name = "TotalFee";
             // 
             // mainMenu1
             // 
@@ -520,7 +555,7 @@ namespace recreation_center
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1036, 528);
+            this.ClientSize = new System.Drawing.Size(1297, 632);
             this.Controls.Add(this.MainTab);
             this.Controls.Add(this.userNameLabel);
             this.Controls.Add(this.button1);
@@ -584,12 +619,15 @@ namespace recreation_center
         private System.Windows.Forms.DataGridView VisitorTable;
         private System.Windows.Forms.BindingSource form2BindingSource;
         private System.Windows.Forms.DateTimePicker DatePicker;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VisitorId;
         private System.Windows.Forms.DataGridViewTextBoxColumn Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Group;
-        private System.Windows.Forms.DataGridViewTextBoxColumn isWeeknd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn isWeekend;
         private System.Windows.Forms.DataGridViewTextBoxColumn Completed;
         private System.Windows.Forms.DataGridViewTextBoxColumn CheckInTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn CheckoutTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TotalFee;
+        private System.Windows.Forms.Button refreshVisitors;
     }
 }
