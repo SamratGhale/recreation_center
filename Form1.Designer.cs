@@ -173,10 +173,10 @@ namespace recreation_center
             // 
             // visitorName
             // 
-            this.visitorName.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.visitorName.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.visitorName.Location = new System.Drawing.Point(180, 183);
             this.visitorName.Name = "visitorName";
-            this.visitorName.Size = new System.Drawing.Size(123, 30);
+            this.visitorName.Size = new System.Drawing.Size(123, 26);
             this.visitorName.TabIndex = 15;
             // 
             // TotalFee

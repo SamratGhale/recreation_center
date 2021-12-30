@@ -18,15 +18,22 @@ namespace recreation_center
         {
             InitializeComponent();
             this.v = _v;
-            VisitorId.Text   = _v.VisitorId.ToString();
-            visitorName.Text = _v.Name;
-            date.Value = _v.Date;
-            IsWeekend.Checked = _v.IsWeekend;
-            checkInTime.Value = _v.InTime;
-            if (_v.Completed)
+            this.menuArr = _menuArr;
+            refresh();
+        }
+
+        void refresh()
+        {
+            VisitorId.Text   = v.VisitorId.ToString();
+            visitorName.Text = v.Name;
+            date.Value = v.Date;
+            IsWeekend.Checked = v.IsWeekend;
+            checkInTime.Value = v.InTime;
+            if (v.Completed)
             {
                 statusBox.SelectedIndex = 0;
-                checkOutTime.Value = _v.OutTime;
+                checkOutTime.Value = v.OutTime;
+                TotalFee.Text = v.TotalFee.ToString();
             }
             else
             {
@@ -36,12 +43,12 @@ namespace recreation_center
                 checkOutLabel.Visible = false;
                 TotalFee.Visible = false;
             }
-            foreach (GroupRates gr in _menuArr.groupArr)
+            foreach (GroupRates gr in menuArr.groupArr)
             {
                 ageGroupType.Items.Add(gr.getRowValues()[0]);
             }
-            this.menuArr = _menuArr;
-            ageGroupType.SelectedIndex= ((int)_v.Type);
+            ageGroupType.SelectedIndex= ((int)v.Type);
+
         }
 
         private void statusBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -74,6 +81,7 @@ namespace recreation_center
                 this.v.OutTime = checkOutTime.Value;
                 this.v.Completed = true;
                 this.v.TotalFee = menuArr.GetTotal(this.v);
+                refresh();
             }
             else
             {

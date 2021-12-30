@@ -113,7 +113,7 @@ namespace recreation_center
             }
             foreach(GroupRates gr in groupArr){
                 if(gr.Age == visitor.Type){
-                    TimeSpan result = visitor.InTime.Subtract(visitor.OutTime);
+                    TimeSpan result = visitor.OutTime.Subtract(visitor.InTime);
                     if(result.Hours <= 1){
                         price = gr.Rate.One_hr; 
                     }
