@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace recreation_center
 {
+    [Serializable]
     public class Visitor
     {
         public GroupType Type   { get; set; }
@@ -41,6 +42,9 @@ namespace recreation_center
             this.IsWeekend = _isWeeknd;
             this.Completed = false;
             this.TotalFee  = 0;
+        }
+        public Visitor()
+        {
         }
         public string[] getValues(){
             if (!Completed)

@@ -10,6 +10,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml.Serialization;
 
 namespace recreation_center
@@ -42,6 +43,7 @@ namespace recreation_center
             init();
             RefreshMenu();
             RefreshRecords();
+            refreshChart();
         }
 
         void RefreshMenu(){
@@ -221,6 +223,67 @@ namespace recreation_center
         private void refreshVisitors_Click(object sender, EventArgs e)
         {
             RefreshRecords();
+        }
+
+        private void menuItem11_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog SaveFileDialog1 = new SaveFileDialog();
+            SaveFileDialog1.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
+            if (SaveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Stream stream = new FileStream(SaveFileDialog1.FileName.ToString(), FileMode.Create, FileAccess.Write);
+                XmlSerializer formatter = new XmlSerializer(typeof(List<Visitor>));
+                formatter.Serialize(stream, visitors);
+                stream.Close();
+            }
+        }
+
+        private void menuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuItem13_Click(object sender, EventArgs e)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(GroupsArray));
+
+            OpenFileDialog dlg = new OpenFileDialog();
+            if(dlg.ShowDialog() == DialogResult.OK)
+            {
+                using(Stream reader = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read))
+                {
+                    this.visitors =  (List<Visitor>)serializer.Deserialize(reader);
+                }
+            }
+
+        }
+        void refreshChart()
+        {
+            chart1.Series.Clear();
+            chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+            chart1.Padding = new Padding(3,3,3,3);
+            double totalIncomeDouble = 0;
+            visitors.ForEach(item => totalIncomeDouble += item.TotalFee);
+            foreach (GroupRates gr in menuArr.groupArr)
+            {
+                Series series = this.chart1.Series.Add(gr.getRowValues()[0]);
+                series["PixelPointWidth"] = "400";
+                series.Points.Add(visitors.FindAll(item => item.Type == gr.Age && item.Date.Date == dateTimePicker1.Value.Date).Count);
+            }
+            TotalIncome.Text = totalIncomeDouble.ToString();
+        }
+
+
+        private void menuItem14_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+            refreshChart();
         }
     }
 }
