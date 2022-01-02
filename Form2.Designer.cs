@@ -77,8 +77,11 @@ namespace recreation_center
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalFee = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.TotalIncome = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem3 = new System.Windows.Forms.MenuItem();
@@ -96,9 +99,6 @@ namespace recreation_center
             this.menuItem13 = new System.Windows.Forms.MenuItem();
             this.menuItem15 = new System.Windows.Forms.MenuItem();
             this.form2BindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.TotalIncome = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.MainTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -123,7 +123,7 @@ namespace recreation_center
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(782, 9);
+            this.button1.Location = new System.Drawing.Point(701, 1);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(78, 35);
             this.button1.TabIndex = 1;
@@ -185,6 +185,7 @@ namespace recreation_center
             this.DatePicker.Name = "DatePicker";
             this.DatePicker.Size = new System.Drawing.Size(200, 26);
             this.DatePicker.TabIndex = 14;
+            this.DatePicker.ValueChanged += new System.EventHandler(this.DatePicker_ValueChanged);
             // 
             // completedBox
             // 
@@ -513,6 +514,26 @@ namespace recreation_center
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Daily Report";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(792, 158);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(135, 19);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Total Income :";
+            // 
+            // TotalIncome
+            // 
+            this.TotalIncome.AutoSize = true;
+            this.TotalIncome.BackColor = System.Drawing.Color.White;
+            this.TotalIncome.Location = new System.Drawing.Point(933, 158);
+            this.TotalIncome.Name = "TotalIncome";
+            this.TotalIncome.Size = new System.Drawing.Size(135, 19);
+            this.TotalIncome.TabIndex = 2;
+            this.TotalIncome.Text = "Total Income :";
+            // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Location = new System.Drawing.Point(792, 57);
@@ -543,6 +564,16 @@ namespace recreation_center
             this.chart1.Size = new System.Drawing.Size(729, 462);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "jk";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Location = new System.Drawing.Point(4, 28);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(1230, 538);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "tabPage5";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // mainMenu1
             // 
@@ -652,40 +683,7 @@ namespace recreation_center
             // 
             this.menuItem15.Index = 1;
             this.menuItem15.Text = "Import to CSV";
-            // 
-            // form2BindingSource
-            // 
-            this.form2BindingSource.DataSource = typeof(recreation_center.Form2);
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Location = new System.Drawing.Point(4, 28);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1230, 538);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "tabPage5";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // TotalIncome
-            // 
-            this.TotalIncome.AutoSize = true;
-            this.TotalIncome.BackColor = System.Drawing.Color.White;
-            this.TotalIncome.Location = new System.Drawing.Point(933, 158);
-            this.TotalIncome.Name = "TotalIncome";
-            this.TotalIncome.Size = new System.Drawing.Size(135, 19);
-            this.TotalIncome.TabIndex = 2;
-            this.TotalIncome.Text = "Total Income :";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(792, 158);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(135, 19);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Total Income :";
+            this.menuItem15.Click += new System.EventHandler(this.menuItem15_Click);
             // 
             // Form2
             // 

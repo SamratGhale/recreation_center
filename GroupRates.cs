@@ -44,6 +44,14 @@ namespace recreation_center
             this.Four_hr = four_hr;
             this.Whole_day = whole_day;
         }
+
+        public Rates(List<int> rates)
+        {
+            this.One_hr = rates[0];
+            this.Two_hr = rates[1];
+            this.Four_hr = rates[2];
+            this.Whole_day = rates[3];
+        }
         public void resetRates(int one_hr, int two_hr,  int four_hr, int whole_day)
         {
             this.One_hr = one_hr;
@@ -76,6 +84,12 @@ namespace recreation_center
         {
             this.Age       = ageGroup;
             this.Rate      = new Rates();
+        }
+
+        public GroupRates(GroupType ageGroup, Rates _rate)
+        {
+            this.Age       = ageGroup;
+            this.Rate      = _rate;
         }
         private GroupRates()
         {

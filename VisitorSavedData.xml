@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<ArrayOfVisitor xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Visitor>
+    <VisitorId>0</VisitorId>
+    <Name>samrat ghale</Name>
+    <Type>Child</Type>
+    <IsWeekend>true</IsWeekend>
+    <Completed>true</Completed>
+    <InTime>2022-01-02T12:52:18.3234859+05:45</InTime>
+    <OutTime>2022-01-02T12:52:18.3234859+05:45</OutTime>
+    <Date>2022-01-02T00:00:00+05:45</Date>
+    <TotalFee>294</TotalFee>
+  </Visitor>
+  <Visitor>
+    <VisitorId>2</VisitorId>
+    <Name>samrat ghale</Name>
+    <Type>Adult</Type>
+    <IsWeekend>false</IsWeekend>
+    <Completed>true</Completed>
+    <InTime>2022-01-02T12:52:18.3234859+05:45</InTime>
+    <OutTime>2022-01-02T12:52:18.3234859+05:45</OutTime>
+    <Date>2022-01-02T00:00:00+05:45</Date>
+    <TotalFee>0</TotalFee>
+  </Visitor>
+  <Visitor>
+    <VisitorId>3</VisitorId>
+    <Name>samrat ghale</Name>
+    <Type>Elder</Type>
+    <IsWeekend>true</IsWeekend>
+    <Completed>true</Completed>
+    <InTime>2022-01-02T12:52:18.3234859+05:45</InTime>
+    <OutTime>2022-01-02T12:52:18.3234859+05:45</OutTime>
+    <Date>2022-01-02T00:00:00+05:45</Date>
+    <TotalFee>0</TotalFee>
+  </Visitor>
+  <Visitor>
+    <VisitorId>4</VisitorId>
+    <Name>samrat ghale</Name>
+    <Type>GroupOfTen</Type>
+    <IsWeekend>true</IsWeekend>
+    <Completed>true</Completed>
+    <InTime>2022-01-02T12:52:18.3234859+05:45</InTime>
+    <OutTime>2022-01-02T12:52:18.3234859+05:45</OutTime>
+    <Date>2022-01-01T00:00:00</Date>
+    <TotalFee>411.6</TotalFee>
+  </Visitor>
+  <Visitor>
+    <VisitorId>5</VisitorId>
+    <Name>samrat ghale</Name>
+    <Type>Child</Type>
+    <IsWeekend>true</IsWeekend>
+    <Completed>false</Completed>
+    <InTime>2022-01-02T12:52:18.3234859+05:45</InTime>
+    <OutTime>0001-01-01T00:00:00</OutTime>
+    <Date>2022-01-02T00:00:00+05:45</Date>
+    <TotalFee>0</TotalFee>
+  </Visitor>
+  <Visitor>
+    <VisitorId>6</VisitorId>
+    <Name>samrat ghale</Name>
+    <Type>Child</Type>
+    <IsWeekend>false</IsWeekend>
+    <Completed>false</Completed>
+    <InTime>2022-01-02T12:52:18.3234859+05:45</InTime>
+    <OutTime>0001-01-01T00:00:00</OutTime>
+    <Date>2022-01-02T00:00:00+05:45</Date>
+    <TotalFee>0</TotalFee>
+  </Visitor>
+  <Visitor>
+    <VisitorId>7</VisitorId>
+    <Name>samrat ghale</Name>
+    <Type>Child</Type>
+    <IsWeekend>true</IsWeekend>
+    <Completed>false</Completed>
+    <InTime>2022-01-02T12:52:18.3234859+05:45</InTime>
+    <OutTime>0001-01-01T00:00:00</OutTime>
+    <Date>2022-01-02T00:00:00+05:45</Date>
+    <TotalFee>0</TotalFee>
+  </Visitor>
+  <Visitor>
+    <VisitorId>8</VisitorId>
+    <Name>samrat ghale</Name>
+    <Type>Child</Type>
+    <IsWeekend>true</IsWeekend>
+    <Completed>false</Completed>
+    <InTime>2022-01-02T12:52:18.3234859+05:45</InTime>
+    <OutTime>0001-01-01T00:00:00</OutTime>
+    <Date>2022-01-02T00:00:00+05:45</Date>
+    <TotalFee>0</TotalFee>
+  </Visitor>
+</ArrayOfVisitor>

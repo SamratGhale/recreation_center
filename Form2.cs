@@ -1,10 +1,12 @@
-﻿using System;
+﻿using EnumsNET;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -47,6 +49,11 @@ namespace recreation_center
         }
 
         void RefreshMenu(){
+                Stream stream = new FileStream("../../../MenuSavedData.xml", FileMode.Create, FileAccess.Write);
+                XmlSerializer formatter = new XmlSerializer(typeof(GroupsArray));
+                formatter.Serialize(stream, menuArr);
+                stream.Close();
+
             MenuTable.Rows.Clear();
             foreach (GroupRates gr in menuArr.groupArr)
             {
@@ -55,6 +62,11 @@ namespace recreation_center
         }
 
         void RefreshRecords(){
+                Stream stream = new FileStream("../../../VisitorSavedData.xml", FileMode.Create, FileAccess.Write);
+                XmlSerializer formatter = new XmlSerializer(typeof(List<Visitor>));
+                formatter.Serialize(stream, visitors);
+                stream.Close();
+
             VisitorTable.Rows.Clear();
             foreach (Visitor vr in visitors)
             {
@@ -103,18 +115,18 @@ namespace recreation_center
         }
 
         void init(){
-                visitors.Add(new Visitor(0, "samrat ghale", GroupType.Child, DateTime.Today,  DateTime.Now , DateTime.Now, true));
-                visitors[visitors.Count-1].TotalFee = menuArr.GetTotal(visitors[visitors.Count-1]);
-                visitors.Add(new Visitor(2, "samrat ghale", GroupType.Adult, DateTime.Today , DateTime.Now , DateTime.Now, false));
-                visitors[visitors.Count-1].TotalFee = menuArr.GetTotal(visitors[visitors.Count-1]);
-                visitors.Add(new Visitor(3, "samrat ghale", GroupType.Elder, DateTime.Today , DateTime.Now , DateTime.Now, true));
-                visitors[visitors.Count-1].TotalFee = menuArr.GetTotal(visitors[visitors.Count-1]);
-                visitors.Add(new Visitor(4, "samrat ghale", GroupType.GroupOfTen, DateTime.Today , DateTime.Now , DateTime.Now, true));
-                visitors[visitors.Count-1].TotalFee = menuArr.GetTotal(visitors[visitors.Count-1]);
-                visitors.Add(new Visitor(5, "samrat ghale", GroupType.Child, DateTime.Today , DateTime.Now ,  true));
-                visitors.Add(new Visitor(6, "samrat ghale", GroupType.Child, DateTime.Today , DateTime.Now ,  false));
-                visitors.Add(new Visitor(7, "samrat ghale", GroupType.Child, DateTime.Today , DateTime.Now ,  true));
-                visitors.Add(new Visitor(8, "samrat ghale", GroupType.Child, DateTime.Today , DateTime.Now ,  true));
+
+            XmlSerializer serializer = new XmlSerializer(typeof(GroupsArray));
+            using(Stream reader = new FileStream("../../../MenuSavedData.xml", FileMode.Open, FileAccess.Read))
+            {
+                GroupsArray newArr =  (GroupsArray)serializer.Deserialize(reader);
+                this.menuArr = newArr;
+            }
+            XmlSerializer serializer1 = new XmlSerializer(typeof(List<Visitor>));
+            using(Stream reader = new FileStream("../../../VisitorSavedData.xml", FileMode.Open, FileAccess.Read))
+            {
+                visitors =  (List<Visitor>)serializer1.Deserialize(reader);
+            }
         }
 
         private void menuItem6_Click(object sender, EventArgs e)
@@ -179,7 +191,26 @@ namespace recreation_center
 
         private void menuItem8_Click(object sender, EventArgs e)
         {
-
+            GroupsArray m = new GroupsArray();
+            m.groupArr = new List<GroupRates>();
+            OpenFileDialog dlg = new OpenFileDialog();
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamReader reader = new StreamReader(dlg.FileName))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        string line   = reader.ReadLine();
+                        string[] values = line.Split(',');
+                        Rates r = new Rates(values.Skip(1).ToList().Select(int.Parse).ToList());
+                        
+                        GroupType gt = Enum.GetValues(typeof(GroupType)).Cast<GroupType>().First(item=> item.AsString(EnumFormat.Description) == values[0] );
+                        m.groupArr.Add(new GroupRates(gt, r));
+                    }
+                }
+            }
+            menuArr = m;
+            RefreshMenu();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -264,7 +295,10 @@ namespace recreation_center
             chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
             chart1.Padding = new Padding(3,3,3,3);
             double totalIncomeDouble = 0;
-            visitors.ForEach(item => totalIncomeDouble += item.TotalFee);
+            foreach(Visitor v in visitors)if(v.Date == dateTimePicker1.Value.Date)
+            {
+                    totalIncomeDouble += v.TotalFee; 
+            } 
             foreach (GroupRates gr in menuArr.groupArr)
             {
                 Series series = this.chart1.Series.Add(gr.getRowValues()[0]);
@@ -277,12 +311,40 @@ namespace recreation_center
 
         private void menuItem14_Click(object sender, EventArgs e)
         {
+            SaveFileDialog SaveFileDialog1 = new SaveFileDialog();
+            SaveFileDialog1.Filter = "Csv files (*.csv)|*.csv|All files (*.*)|*.*";
+            if (SaveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var csv = new StringBuilder();
+                List<string>titles = new List<string>() ;
+                foreach (PropertyInfo prop in (new Visitor()).GetType().GetProperties())
+                {
+                    titles.Add(prop.Name);
+                }
+                csv.AppendLine(string.Join(",", titles));
+
+                foreach (Visitor v in visitors)
+                {
+                    csv.AppendLine(string.Join(",", v.getValues()));
+                }
+                File.WriteAllText(SaveFileDialog1.FileName.ToString(), csv.ToString());
+            }
 
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
 
+            refreshChart();
+        }
+
+        private void menuItem15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DatePicker_ValueChanged(object sender, EventArgs e)
+        {
             refreshChart();
         }
     }

@@ -10,14 +10,14 @@ namespace recreation_center
     [Serializable]
     public class Visitor
     {
+        public int VisitorId    { get; set; }
+        public string Name      { get; set; }
         public GroupType Type   { get; set; }
+        public bool IsWeekend   { get; set; }
+        public bool Completed   { get; set; }
         public DateTime InTime  { get; set; }
         public DateTime OutTime { get; set; }
-        public bool IsWeekend   { get; set; }
-        public string Name      { get; set; }
         public DateTime Date    { get; set; }
-        public bool Completed   { get; set; }
-        public int VisitorId    { get; set; }
         public double TotalFee  { get; set; }
 
         public Visitor(int _visitorId, string _name, GroupType _type,DateTime _date, DateTime _InTime, DateTime _OutTime, bool _isWeeknd)
