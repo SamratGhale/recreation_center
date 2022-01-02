@@ -77,10 +77,10 @@ namespace recreation_center
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalFee = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label6 = new System.Windows.Forms.Label();
             this.TotalIncome = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
             this.menuItem1 = new System.Windows.Forms.MenuItem();
@@ -503,10 +503,10 @@ namespace recreation_center
             // tabPage4
             // 
             this.tabPage4.BackColor = System.Drawing.Color.Silver;
+            this.tabPage4.Controls.Add(this.chart1);
             this.tabPage4.Controls.Add(this.label6);
             this.tabPage4.Controls.Add(this.TotalIncome);
             this.tabPage4.Controls.Add(this.dateTimePicker1);
-            this.tabPage4.Controls.Add(this.chart1);
             this.tabPage4.Location = new System.Drawing.Point(4, 28);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -514,11 +514,27 @@ namespace recreation_center
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Daily Report";
             // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(6, 24);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(826, 471);
+            this.chart1.TabIndex = 4;
+            this.chart1.Text = "chart1";
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(792, 158);
+            this.label6.Location = new System.Drawing.Point(838, 127);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(135, 19);
             this.label6.TabIndex = 3;
@@ -528,7 +544,7 @@ namespace recreation_center
             // 
             this.TotalIncome.AutoSize = true;
             this.TotalIncome.BackColor = System.Drawing.Color.White;
-            this.TotalIncome.Location = new System.Drawing.Point(933, 158);
+            this.TotalIncome.Location = new System.Drawing.Point(1007, 127);
             this.TotalIncome.Name = "TotalIncome";
             this.TotalIncome.Size = new System.Drawing.Size(135, 19);
             this.TotalIncome.TabIndex = 2;
@@ -536,34 +552,12 @@ namespace recreation_center
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(792, 57);
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker1.Location = new System.Drawing.Point(947, 34);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 26);
+            this.dateTimePicker1.Size = new System.Drawing.Size(135, 26);
             this.dateTimePicker1.TabIndex = 1;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
-            // 
-            // chart1
-            // 
-            this.chart1.BackSecondaryColor = System.Drawing.Color.Silver;
-            this.chart1.BorderlineColor = System.Drawing.Color.Silver;
-            this.chart1.BorderlineWidth = 20;
-            this.chart1.BorderSkin.SkinStyle = System.Windows.Forms.DataVisualization.Charting.BorderSkinStyle.Emboss;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.ImeMode = System.Windows.Forms.ImeMode.On;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(57, 57);
-            this.chart1.Name = "chart1";
-            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
-            series1.ChartArea = "ChartArea1";
-            series1.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(729, 462);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "jk";
             // 
             // tabPage5
             // 
@@ -771,12 +765,12 @@ namespace recreation_center
         private System.Windows.Forms.MenuItem menuItem12;
         private System.Windows.Forms.MenuItem menuItem13;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.MenuItem menuItem14;
         private System.Windows.Forms.MenuItem menuItem15;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label TotalIncome;
         private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }

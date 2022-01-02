@@ -294,6 +294,8 @@ namespace recreation_center
             chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
             chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
             chart1.Padding = new Padding(3,3,3,3);
+            chart1.ChartAreas[0].AxisY.IsMarginVisible = false;
+            chart1.ChartAreas[0].AxisX.IsMarginVisible = false;
             double totalIncomeDouble = 0;
             foreach(Visitor v in visitors)if(v.Date == dateTimePicker1.Value.Date)
             {
@@ -303,8 +305,20 @@ namespace recreation_center
             {
                 Series series = this.chart1.Series.Add(gr.getRowValues()[0]);
                 series["PixelPointWidth"] = "400";
-                series.Points.Add(visitors.FindAll(item => item.Type == gr.Age && item.Date.Date == dateTimePicker1.Value.Date).Count);
+                int count = 0;
+                foreach(Visitor v in visitors)
+                {
+                    if(v.Type == gr.Age && v.Date.Date.ToShortDateString() == dateTimePicker1.Value.Date.ToShortDateString())
+                    {
+                        count += 1;
+                    }
+                }
+                series.Points.Add(count );
             }
+            chart1.ChartAreas[0].AxisX.Maximum = 13;
+            chart1.ChartAreas[0].AxisX.Minimum = 0;
+            chart1.ChartAreas[0].AxisY.Maximum = 13;
+            chart1.ChartAreas[0].AxisY.Minimum = 0;
             TotalIncome.Text = totalIncomeDouble.ToString();
         }
 
