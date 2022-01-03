@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -17,11 +18,13 @@ using System.Xml.Serialization;
 
 namespace recreation_center
 {
-    
+
     public partial class Form2 : Form
     {
         private GroupsArray menuArr;
         private List<Visitor> visitors;
+
+        private bool isIncomeSort;
 
         String userName;
 
@@ -33,7 +36,7 @@ namespace recreation_center
             menuArr = new GroupsArray();
             visitors = new List<Visitor>();
             menuArr.initilizeWithZero();
-            if(userName != "Admin")
+            if (userName != "Admin")
             {
                 UpdateMenu.Hide();
             }
@@ -46,13 +49,16 @@ namespace recreation_center
             RefreshMenu();
             RefreshRecords();
             refreshChart();
+            refreshWeeklyChart();
+            isIncomeSort = true;
+            ByTotalIncome.Checked = true;
         }
 
-        void RefreshMenu(){
-                Stream stream = new FileStream("../../../MenuSavedData.xml", FileMode.Create, FileAccess.Write);
-                XmlSerializer formatter = new XmlSerializer(typeof(GroupsArray));
-                formatter.Serialize(stream, menuArr);
-                stream.Close();
+        void RefreshMenu() {
+            Stream stream = new FileStream("../../../MenuSavedData.xml", FileMode.Create, FileAccess.Write);
+            XmlSerializer formatter = new XmlSerializer(typeof(GroupsArray));
+            formatter.Serialize(stream, menuArr);
+            stream.Close();
 
             MenuTable.Rows.Clear();
             foreach (GroupRates gr in menuArr.groupArr)
@@ -61,11 +67,11 @@ namespace recreation_center
             }
         }
 
-        void RefreshRecords(){
-                Stream stream = new FileStream("../../../VisitorSavedData.xml", FileMode.Create, FileAccess.Write);
-                XmlSerializer formatter = new XmlSerializer(typeof(List<Visitor>));
-                formatter.Serialize(stream, visitors);
-                stream.Close();
+        void RefreshRecords() {
+            Stream stream = new FileStream("../../../VisitorSavedData.xml", FileMode.Create, FileAccess.Write);
+            XmlSerializer formatter = new XmlSerializer(typeof(List<Visitor>));
+            formatter.Serialize(stream, visitors);
+            stream.Close();
 
             VisitorTable.Rows.Clear();
             foreach (Visitor vr in visitors)
@@ -114,18 +120,18 @@ namespace recreation_center
             }
         }
 
-        void init(){
+        void init() {
 
             XmlSerializer serializer = new XmlSerializer(typeof(GroupsArray));
-            using(Stream reader = new FileStream("../../../MenuSavedData.xml", FileMode.Open, FileAccess.Read))
+            using (Stream reader = new FileStream("../../../MenuSavedData.xml", FileMode.Open, FileAccess.Read))
             {
-                GroupsArray newArr =  (GroupsArray)serializer.Deserialize(reader);
+                GroupsArray newArr = (GroupsArray)serializer.Deserialize(reader);
                 this.menuArr = newArr;
             }
             XmlSerializer serializer1 = new XmlSerializer(typeof(List<Visitor>));
-            using(Stream reader = new FileStream("../../../VisitorSavedData.xml", FileMode.Open, FileAccess.Read))
+            using (Stream reader = new FileStream("../../../VisitorSavedData.xml", FileMode.Open, FileAccess.Read))
             {
-                visitors =  (List<Visitor>)serializer1.Deserialize(reader);
+                visitors = (List<Visitor>)serializer1.Deserialize(reader);
             }
         }
 
@@ -149,7 +155,7 @@ namespace recreation_center
             SaveFileDialog1.Filter = "Csv files (*.csv)|*.csv|All files (*.*)|*.*";
             if (SaveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                var csv = new  StringBuilder();
+                var csv = new StringBuilder();
                 foreach (GroupRates gr in menuArr.groupArr)
                 {
                     csv.AppendLine(string.Join(",", gr.getRowValues()));
@@ -164,11 +170,11 @@ namespace recreation_center
             XmlSerializer serializer = new XmlSerializer(typeof(GroupsArray));
 
             OpenFileDialog dlg = new OpenFileDialog();
-            if(dlg.ShowDialog() == DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
-                using(Stream reader = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read))
+                using (Stream reader = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read))
                 {
-                    GroupsArray newArr =  (GroupsArray)serializer.Deserialize(reader);
+                    GroupsArray newArr = (GroupsArray)serializer.Deserialize(reader);
                     this.menuArr = newArr;
                 }
             }
@@ -200,11 +206,11 @@ namespace recreation_center
                 {
                     while (!reader.EndOfStream)
                     {
-                        string line   = reader.ReadLine();
+                        string line = reader.ReadLine();
                         string[] values = line.Split(',');
                         Rates r = new Rates(values.Skip(1).ToList().Select(int.Parse).ToList());
-                        
-                        GroupType gt = Enum.GetValues(typeof(GroupType)).Cast<GroupType>().First(item=> item.AsString(EnumFormat.Description) == values[0] );
+
+                        GroupType gt = Enum.GetValues(typeof(GroupType)).Cast<GroupType>().First(item => item.AsString(EnumFormat.Description) == values[0]);
                         m.groupArr.Add(new GroupRates(gt, r));
                     }
                 }
@@ -217,11 +223,11 @@ namespace recreation_center
         {
             if (completedBox.Checked)
             {
-                Visitor v = new Visitor(visitors.Count + 1, visitorNameBox.Text, (GroupType)ageGroupBox.SelectedIndex, DatePicker.Value, checkInBox.Value, checkOutBox.Value, isWeekendBox.Checked );
+                Visitor v = new Visitor(visitors.Count + 1, visitorNameBox.Text, (GroupType)ageGroupBox.SelectedIndex, DatePicker.Value, checkInBox.Value, checkOutBox.Value, isWeekendBox.Checked);
                 v.TotalFee = menuArr.GetTotal(v);
                 this.visitors.Add(v);
-            }else{
-                Visitor v = new Visitor(visitors.Count + 1,visitorNameBox.Text, (GroupType)ageGroupBox.SelectedIndex, DatePicker.Value, checkInBox.Value, isWeekendBox.Checked);
+            } else {
+                Visitor v = new Visitor(visitors.Count + 1, visitorNameBox.Text, (GroupType)ageGroupBox.SelectedIndex, DatePicker.Value, checkInBox.Value, isWeekendBox.Checked);
                 this.visitors.Add(v);
             }
             RefreshRecords();
@@ -243,7 +249,7 @@ namespace recreation_center
 
         private void VisitorTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex == -1)
+            if (e.RowIndex == -1)
             {
                 return;
             }
@@ -279,11 +285,11 @@ namespace recreation_center
             XmlSerializer serializer = new XmlSerializer(typeof(GroupsArray));
 
             OpenFileDialog dlg = new OpenFileDialog();
-            if(dlg.ShowDialog() == DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
-                using(Stream reader = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read))
+                using (Stream reader = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read))
                 {
-                    this.visitors =  (List<Visitor>)serializer.Deserialize(reader);
+                    this.visitors = (List<Visitor>)serializer.Deserialize(reader);
                 }
             }
 
@@ -293,31 +299,36 @@ namespace recreation_center
             chart1.Series.Clear();
             chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
             chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-            chart1.Padding = new Padding(3,3,3,3);
+            chart1.Padding = new Padding(3, 3, 3, 3);
             chart1.ChartAreas[0].AxisY.IsMarginVisible = false;
             chart1.ChartAreas[0].AxisX.IsMarginVisible = false;
             double totalIncomeDouble = 0;
-            foreach(Visitor v in visitors)if(v.Date == dateTimePicker1.Value.Date)
-            {
-                    totalIncomeDouble += v.TotalFee; 
-            } 
+            foreach (Visitor v in visitors) if (v.Date == dateTimePicker1.Value.Date)
+                {
+                    totalIncomeDouble += v.TotalFee;
+                }
+            int max = 1;
             foreach (GroupRates gr in menuArr.groupArr)
             {
                 Series series = this.chart1.Series.Add(gr.getRowValues()[0]);
                 series["PixelPointWidth"] = "400";
                 int count = 0;
-                foreach(Visitor v in visitors)
+                foreach (Visitor v in visitors)
                 {
-                    if(v.Type == gr.Age && v.Date.Date.ToShortDateString() == dateTimePicker1.Value.Date.ToShortDateString())
+                    if (v.Type == gr.Age && v.Date.Date.ToShortDateString() == dateTimePicker1.Value.Date.ToShortDateString())
                     {
                         count += 1;
                     }
                 }
-                series.Points.Add(count );
+                if (count >= max)
+                {
+                    max = count;
+                }
+                series.Points.Add(count);
             }
-            chart1.ChartAreas[0].AxisX.Maximum = 13;
+            //chart1.ChartAreas[0].AxisX.Maximum = menuArr.groupArr.Count;
             chart1.ChartAreas[0].AxisX.Minimum = 0;
-            chart1.ChartAreas[0].AxisY.Maximum = 13;
+            chart1.ChartAreas[0].AxisY.Maximum = max;
             chart1.ChartAreas[0].AxisY.Minimum = 0;
             TotalIncome.Text = totalIncomeDouble.ToString();
         }
@@ -330,7 +341,7 @@ namespace recreation_center
             if (SaveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 var csv = new StringBuilder();
-                List<string>titles = new List<string>() ;
+                List<string> titles = new List<string>();
                 foreach (PropertyInfo prop in (new Visitor()).GetType().GetProperties())
                 {
                     titles.Add(prop.Name);
@@ -360,6 +371,111 @@ namespace recreation_center
         private void DatePicker_ValueChanged(object sender, EventArgs e)
         {
             refreshChart();
+        }
+
+        void refreshWeeklyChart()
+        {
+            DateTime date = WeeklyDatePicker.Value.Date; 
+            int year = date.Date.Year;
+            DateTime firstDay = new DateTime(year, 1, 1);
+            CultureInfo cul = CultureInfo.CurrentCulture;
+            int weekNo = cul.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
+            int days = (weekNo - 1) * 7;
+            DateTime dt1 = firstDay.AddDays(days);
+            DayOfWeek dow = dt1.DayOfWeek;
+            DateTime startDateOfWeek = dt1.AddDays(-(int)dow);
+            DateTime endDateOfWeek = startDateOfWeek.AddDays(6);
+
+            StartDateLabel.Text = startDateOfWeek.ToShortDateString();
+            EndDateLabel.Text   = endDateOfWeek.ToShortDateString();
+
+            DateTime currDate = startDateOfWeek;
+
+            string[] daysOfWeek = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday" };
+
+            int index = 0;
+
+            chart2.Series.Clear();
+            chart2.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            chart2.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+            chart2.Padding = new Padding(3, 3, 3, 3);
+            chart2.ChartAreas[0].AxisY.IsMarginVisible = false;
+            chart2.ChartAreas[0].AxisX.IsMarginVisible = false;
+
+            double totalIncomeDouble = 0;
+            foreach (Visitor v in visitors) if (v.Date <= startDateOfWeek.Date  && v.Date >= endDateOfWeek.Date  )
+            {
+                totalIncomeDouble += v.TotalFee;
+            }
+
+
+            List<WeekInfo> weeks = new List<WeekInfo>();
+
+            while(currDate.Date <= endDateOfWeek)
+            {
+
+                int count = 0;
+                double totalIncome = 0;
+
+                foreach (Visitor v in visitors)
+                {
+                    if (v.Date.Date.ToShortDateString() == currDate.Date.ToShortDateString())
+                    {
+                        count += 1;
+                        totalIncome += v.TotalFee;
+                    }
+                }
+
+                weeks.Add(new WeekInfo(daysOfWeek[index], count, totalIncome));
+
+
+                currDate = currDate.AddDays(1);
+                index += 1;
+            }
+
+            //For another for loop
+            if (isIncomeSort)
+            {
+                weeks = BubbleSortClass.BubbleSort(weeks, BubbleSortClass.CompareIncome);
+            }
+            else
+            {
+                weeks = BubbleSortClass.BubbleSort(weeks, BubbleSortClass.CompareNumOfVisitors);
+            }
+
+            foreach (WeekInfo week in weeks)
+            {
+                Series series = this.chart2.Series.Add(week.Name + " "+ (isIncomeSort ? week.TotalIncome : week.NumOfVisitors));
+                series["PixelPointWidth"] = "400";
+                series.Points.Add(isIncomeSort ? week.TotalIncome : week.NumOfVisitors);
+                series.ChartType = SeriesChartType.Bar;
+            }
+                //chart1.ChartAreas[0].AxisX.Maximum = menuArr.groupArr.Count;
+                chart2.ChartAreas[0].AxisX.Minimum = 0;
+                
+                chart2.ChartAreas[0].AxisY.Maximum = weeks.Max(i => (isIncomeSort ? i.TotalIncome : i.NumOfVisitors));
+                chart2.ChartAreas[0].AxisY.Minimum = 0;
+                //TotalIncome.Text = totalIncomeDouble.ToString();
+
+        }
+
+
+
+        private void WeeklyDatePicker_ValueChanged(object sender, EventArgs e)
+        {
+            refreshWeeklyChart();
+        }
+
+        private void ByVisitor_CheckedChanged(object sender, EventArgs e)
+        {
+            this.isIncomeSort = !ByVisitor.Checked;
+            refreshWeeklyChart();
+        }
+
+        private void ByTotalIncome_CheckedChanged(object sender, EventArgs e)
+        {
+            this.isIncomeSort = ByTotalIncome.Checked;
+            refreshWeeklyChart();
         }
     }
 }

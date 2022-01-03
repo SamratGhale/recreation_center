@@ -35,6 +35,9 @@ namespace recreation_center
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.loggedIn = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.userNameLabel = new System.Windows.Forms.Label();
@@ -81,7 +84,16 @@ namespace recreation_center
             this.label6 = new System.Windows.Forms.Label();
             this.TotalIncome = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.WeeklyReport = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ByTotalIncome = new System.Windows.Forms.RadioButton();
+            this.ByVisitor = new System.Windows.Forms.RadioButton();
+            this.EndDateLabel = new System.Windows.Forms.Label();
+            this.StartDateLabel = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.WeeklyDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem3 = new System.Windows.Forms.MenuItem();
@@ -107,6 +119,9 @@ namespace recreation_center
             ((System.ComponentModel.ISupportInitialize)(this.VisitorTable)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.WeeklyReport.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form2BindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -146,7 +161,7 @@ namespace recreation_center
             this.MainTab.Controls.Add(this.tabPage2);
             this.MainTab.Controls.Add(this.tabPage3);
             this.MainTab.Controls.Add(this.tabPage4);
-            this.MainTab.Controls.Add(this.tabPage5);
+            this.MainTab.Controls.Add(this.WeeklyReport);
             this.MainTab.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainTab.Location = new System.Drawing.Point(22, 50);
             this.MainTab.Name = "MainTab";
@@ -559,15 +574,122 @@ namespace recreation_center
             this.dateTimePicker1.TabIndex = 1;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
-            // tabPage5
+            // WeeklyReport
             // 
-            this.tabPage5.Location = new System.Drawing.Point(4, 28);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1230, 538);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "tabPage5";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.WeeklyReport.Controls.Add(this.groupBox1);
+            this.WeeklyReport.Controls.Add(this.EndDateLabel);
+            this.WeeklyReport.Controls.Add(this.StartDateLabel);
+            this.WeeklyReport.Controls.Add(this.label9);
+            this.WeeklyReport.Controls.Add(this.label8);
+            this.WeeklyReport.Controls.Add(this.WeeklyDatePicker);
+            this.WeeklyReport.Controls.Add(this.chart2);
+            this.WeeklyReport.Location = new System.Drawing.Point(4, 28);
+            this.WeeklyReport.Name = "WeeklyReport";
+            this.WeeklyReport.Padding = new System.Windows.Forms.Padding(3);
+            this.WeeklyReport.Size = new System.Drawing.Size(1230, 538);
+            this.WeeklyReport.TabIndex = 4;
+            this.WeeklyReport.Text = "Weekly Report";
+            this.WeeklyReport.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.ByTotalIncome);
+            this.groupBox1.Controls.Add(this.ByVisitor);
+            this.groupBox1.Location = new System.Drawing.Point(944, 247);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(179, 80);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Sorting Options";
+            // 
+            // ByTotalIncome
+            // 
+            this.ByTotalIncome.AutoSize = true;
+            this.ByTotalIncome.Location = new System.Drawing.Point(24, 54);
+            this.ByTotalIncome.Name = "ByTotalIncome";
+            this.ByTotalIncome.Size = new System.Drawing.Size(135, 23);
+            this.ByTotalIncome.TabIndex = 1;
+            this.ByTotalIncome.TabStop = true;
+            this.ByTotalIncome.Text = "Total Income";
+            this.ByTotalIncome.UseVisualStyleBackColor = true;
+            this.ByTotalIncome.CheckedChanged += new System.EventHandler(this.ByTotalIncome_CheckedChanged);
+            // 
+            // ByVisitor
+            // 
+            this.ByVisitor.AutoSize = true;
+            this.ByVisitor.Location = new System.Drawing.Point(24, 25);
+            this.ByVisitor.Name = "ByVisitor";
+            this.ByVisitor.Size = new System.Drawing.Size(126, 23);
+            this.ByVisitor.TabIndex = 0;
+            this.ByVisitor.TabStop = true;
+            this.ByVisitor.Text = "By Visitors";
+            this.ByVisitor.UseVisualStyleBackColor = true;
+            this.ByVisitor.CheckedChanged += new System.EventHandler(this.ByVisitor_CheckedChanged);
+            // 
+            // EndDateLabel
+            // 
+            this.EndDateLabel.AutoSize = true;
+            this.EndDateLabel.Location = new System.Drawing.Point(1056, 194);
+            this.EndDateLabel.Name = "EndDateLabel";
+            this.EndDateLabel.Size = new System.Drawing.Size(18, 19);
+            this.EndDateLabel.TabIndex = 5;
+            this.EndDateLabel.Text = "\"";
+            // 
+            // StartDateLabel
+            // 
+            this.StartDateLabel.AutoSize = true;
+            this.StartDateLabel.Location = new System.Drawing.Point(1056, 134);
+            this.StartDateLabel.Name = "StartDateLabel";
+            this.StartDateLabel.Size = new System.Drawing.Size(18, 19);
+            this.StartDateLabel.TabIndex = 4;
+            this.StartDateLabel.Text = "\"";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(958, 194);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(90, 19);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "End Date:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(940, 134);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(108, 19);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Start Date:";
+            // 
+            // WeeklyDatePicker
+            // 
+            this.WeeklyDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.WeeklyDatePicker.Location = new System.Drawing.Point(944, 56);
+            this.WeeklyDatePicker.Name = "WeeklyDatePicker";
+            this.WeeklyDatePicker.Size = new System.Drawing.Size(134, 26);
+            this.WeeklyDatePicker.TabIndex = 1;
+            this.WeeklyDatePicker.ValueChanged += new System.EventHandler(this.WeeklyDatePicker_ValueChanged);
+            // 
+            // chart2
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
+            legend2.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend2.IsTextAutoFit = false;
+            legend2.Name = "Legend1";
+            this.chart2.Legends.Add(legend2);
+            this.chart2.Location = new System.Drawing.Point(31, 56);
+            this.chart2.Name = "chart2";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            series2.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart2.Series.Add(series2);
+            this.chart2.Size = new System.Drawing.Size(828, 462);
+            this.chart2.TabIndex = 0;
+            this.chart2.Text = "chart2";
             // 
             // mainMenu1
             // 
@@ -700,6 +822,11 @@ namespace recreation_center
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.WeeklyReport.ResumeLayout(false);
+            this.WeeklyReport.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.form2BindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -770,7 +897,16 @@ namespace recreation_center
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label TotalIncome;
-        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage WeeklyReport;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
+        private System.Windows.Forms.DateTimePicker WeeklyDatePicker;
+        private System.Windows.Forms.Label EndDateLabel;
+        private System.Windows.Forms.Label StartDateLabel;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton ByTotalIncome;
+        private System.Windows.Forms.RadioButton ByVisitor;
     }
 }
