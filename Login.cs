@@ -24,7 +24,7 @@ namespace recreation_center
         {
 
             XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load("../../Logins.xml");
+            xmlDoc.Load("../../../Logins.xml");
 
             XmlNodeList nodeList;
 

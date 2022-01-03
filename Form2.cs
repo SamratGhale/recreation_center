@@ -38,7 +38,9 @@ namespace recreation_center
             menuArr.initilizeWithZero();
             if (userName != "Admin")
             {
-                UpdateMenu.Hide();
+                UpdateMenu.Enabled = false;
+                refreshButton.Enabled = false;
+                menuItem4.Enabled = false;
             }
             foreach (GroupRates gr in menuArr.groupArr)
             {
@@ -366,6 +368,44 @@ namespace recreation_center
         private void menuItem15_Click(object sender, EventArgs e)
         {
 
+            List<Visitor> newVisitors = new List<Visitor>();
+
+
+            OpenFileDialog dlg = new OpenFileDialog();
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamReader reader = new StreamReader(dlg.FileName))
+                {
+                    string line = reader.ReadLine();
+                    while (!reader.EndOfStream)
+                    {
+                        Visitor v = new Visitor();
+                        line = reader.ReadLine();
+                        string[] values = line.Split(',');
+
+                        v.VisitorId = int.Parse(values[0]);
+                        v.Name = values[1];
+                        v.Type = Enum.GetValues(typeof(GroupType)).Cast<GroupType>().First(item => item.AsString(EnumFormat.Description) == values[2]);
+                        v.IsWeekend = bool.Parse(values[3]);
+                        v.Completed = bool.Parse(values[4]);
+                        v.InTime = DateTime.Parse(values[5]);
+                        v.Date = DateTime.Parse(values[7]);
+                        if (v.Completed)
+                        {
+                            v.OutTime = DateTime.Parse(values[6]);
+                            v.TotalFee = double.Parse(values[8]);
+                        }
+                        else
+                        {
+                        }
+                        newVisitors.Add(v);
+                    }
+
+                }
+            }
+            visitors = newVisitors;
+            refreshChart();
+            refreshWeeklyChart();
         }
 
         private void DatePicker_ValueChanged(object sender, EventArgs e)

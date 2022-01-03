@@ -16,7 +16,7 @@ namespace recreation_center
        {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form2("Admin"));
+            Application.Run(new Login());
         }
     }
 }
