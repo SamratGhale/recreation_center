@@ -10,8 +10,13 @@ namespace recreation_center
     [Serializable]
     public class Visitor
     {
+        //TO diffrinciate all the visitors like a primary key
         public int VisitorId    { get; set; }
+
+        //Visitor's name
         public string Name      { get; set; }
+
+        //The group/age type of the visitor
         public GroupType Type   { get; set; }
         public bool IsWeekend   { get; set; }
         public bool Completed   { get; set; }
@@ -46,6 +51,10 @@ namespace recreation_center
         public Visitor()
         {
         }
+        /*
+         *for adding in the table, 
+         *if the checkout isn't completed then there can't be checkout time so we have to look for different cases
+         */
         public string[] getValues(){
             if (!Completed)
             {

@@ -10,6 +10,10 @@ using EnumsNET;
 namespace recreation_center
 {
     //Enums for AgeGroup
+    //The GroupType Enum contains the age/groups that are available in
+    //the menu, It is being used in the GroupRates class. 
+
+    //Serializable decorators makes the class able to deserialize and serializable for persistance to disk
     [Serializable]
     public enum GroupType
     {
@@ -30,6 +34,11 @@ namespace recreation_center
         [Description("Group of 20")]
         GroupOfTwenty
     }
+    /*
+     * Rates class
+     * The rates class contains the prices for different hours
+     * It is also being used by the GroupRates class as member variable
+     */
     [Serializable]
     public class Rates{
         public int One_hr     {get;set;}
@@ -72,6 +81,10 @@ namespace recreation_center
         }
     }
 
+    /*
+     *  The GroupRates class contains the information of one group/age 
+     *  type and it's prices for different hours 
+     */
     [Serializable]
     public class GroupRates
     {
@@ -91,10 +104,12 @@ namespace recreation_center
             this.Age       = ageGroup;
             this.Rate      = _rate;
         }
+        //For serialization
         private GroupRates()
         {
 
         }
+        //For putting the value in the table
         public String[] getRowValues()
         {
             String[] ret =   { ((GroupType)Age).AsString(EnumFormat.Description) };
@@ -104,22 +119,30 @@ namespace recreation_center
 
     }
 
+    /*
+     * The Grup Array class just contains a List of GroupRates and weekendPercentage
+     */
     [Serializable]
     public class GroupsArray{
         public List<GroupRates> groupArr;
-
+        public double weekendPercent;
         public GroupsArray(){
-
+            weekendPercent = .2;
         }
         //Initilizes the group array with zero
         public void initilizeWithZero()
         {
+            weekendPercent = 20;
             groupArr = new List<GroupRates>();
             foreach (GroupType gt in Enum.GetValues(typeof(GroupType)))
             {
                 groupArr.Add(new GroupRates(gt));
             }
         }
+        /*
+         * The Get Total Function takes in a visitor and calculates it's price according to the menu
+         * if the visitor was added in the weekend the the weekend percent will be added 
+         */
         public double GetTotal(Visitor visitor){
             double price = 0;
             if(visitor.Completed == false){
@@ -143,7 +166,7 @@ namespace recreation_center
                 }
             }
             if(visitor.IsWeekend){
-                price += price * 0.2;
+                price += price * (weekendPercent/100);
             }
             return price;
         }

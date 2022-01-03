@@ -2,7 +2,7 @@
 <ArrayOfVisitor xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Visitor>
     <VisitorId>0</VisitorId>
-    <Name>samrat ghale</Name>
+    <Name>bishant</Name>
     <Type>Child</Type>
     <IsWeekend>true</IsWeekend>
     <Completed>true</Completed>
@@ -13,7 +13,7 @@
   </Visitor>
   <Visitor>
     <VisitorId>2</VisitorId>
-    <Name>samrat ghale</Name>
+    <Name>mike</Name>
     <Type>Adult</Type>
     <IsWeekend>false</IsWeekend>
     <Completed>true</Completed>
@@ -24,7 +24,7 @@
   </Visitor>
   <Visitor>
     <VisitorId>3</VisitorId>
-    <Name>samrat ghale</Name>
+    <Name>anita</Name>
     <Type>Elder</Type>
     <IsWeekend>true</IsWeekend>
     <Completed>true</Completed>
@@ -35,7 +35,7 @@
   </Visitor>
   <Visitor>
     <VisitorId>4</VisitorId>
-    <Name>samrat ghale</Name>
+    <Name>shraddha</Name>
     <Type>GroupOfTen</Type>
     <IsWeekend>true</IsWeekend>
     <Completed>true</Completed>
@@ -46,7 +46,7 @@
   </Visitor>
   <Visitor>
     <VisitorId>5</VisitorId>
-    <Name>samrat ghale</Name>
+    <Name>banana</Name>
     <Type>Child</Type>
     <IsWeekend>true</IsWeekend>
     <Completed>false</Completed>
@@ -79,13 +79,57 @@
   </Visitor>
   <Visitor>
     <VisitorId>8</VisitorId>
-    <Name>samrat ghale</Name>
+    <Name>dr strrange</Name>
     <Type>Child</Type>
     <IsWeekend>true</IsWeekend>
     <Completed>false</Completed>
     <InTime>2022-01-03T12:52:00</InTime>
     <OutTime>0001-01-01T00:00:00</OutTime>
     <Date>2022-01-02T00:00:00</Date>
+    <TotalFee>0</TotalFee>
+  </Visitor>
+  <Visitor>
+    <VisitorId>9</VisitorId>
+    <Name>joe</Name>
+    <Type>Adult</Type>
+    <IsWeekend>false</IsWeekend>
+    <Completed>true</Completed>
+    <InTime>2022-01-03T07:57:10.986949+05:45</InTime>
+    <OutTime>2022-01-03T07:57:10.9859478+05:45</OutTime>
+    <Date>2022-01-03T07:57:10.9829451+05:45</Date>
+    <TotalFee>0</TotalFee>
+  </Visitor>
+  <Visitor>
+    <VisitorId>10</VisitorId>
+    <Name>spierman</Name>
+    <Type>Child</Type>
+    <IsWeekend>false</IsWeekend>
+    <Completed>true</Completed>
+    <InTime>2022-01-03T07:58:30.9414753+05:45</InTime>
+    <OutTime>2022-01-03T07:58:30.9404743+05:45</OutTime>
+    <Date>2022-01-03T07:58:30.9374718+05:45</Date>
+    <TotalFee>245</TotalFee>
+  </Visitor>
+  <Visitor>
+    <VisitorId>11</VisitorId>
+    <Name>mango</Name>
+    <Type>Child</Type>
+    <IsWeekend>false</IsWeekend>
+    <Completed>true</Completed>
+    <InTime>2022-01-03T08:00:14.899923+05:45</InTime>
+    <OutTime>2022-01-03T10:00:14</OutTime>
+    <Date>2022-01-03T08:00:14.8959193+05:45</Date>
+    <TotalFee>245</TotalFee>
+  </Visitor>
+  <Visitor>
+    <VisitorId>12</VisitorId>
+    <Name>pineapple</Name>
+    <Type>Elder</Type>
+    <IsWeekend>false</IsWeekend>
+    <Completed>false</Completed>
+    <InTime>2022-01-03T08:00:14.899923+05:45</InTime>
+    <OutTime>0001-01-01T00:00:00</OutTime>
+    <Date>2022-01-03T08:00:14.8959193+05:45</Date>
     <TotalFee>0</TotalFee>
   </Visitor>
 </ArrayOfVisitor>

@@ -36,13 +36,15 @@ namespace recreation_center
             menuArr = new GroupsArray();
             visitors = new List<Visitor>();
             menuArr.initilizeWithZero();
-            
+
             if (userName != "Admin")
             {
                 UpdateMenu.Enabled = false;
                 refreshButton.Enabled = false;
                 menuItem4.Enabled = false;
-            }else
+                UpdatePercent.Enabled = false;
+                WeekendPercent.Enabled = false;
+            } else
             {
             }
             foreach (GroupRates gr in menuArr.groupArr)
@@ -51,6 +53,8 @@ namespace recreation_center
             }
             ageGroupBox.SelectedIndex = 0;
             init();
+            menuArr.weekendPercent = 20;
+            WeekendPercent.Text = menuArr.weekendPercent.ToString();
             RefreshMenu();
             RefreshRecords();
             refreshChart();
@@ -67,10 +71,10 @@ namespace recreation_center
                 formatter.Serialize(stream, menuArr);
                 stream.Close();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-            MessageBox.Show("Couldn't open or serealize the file MenuSavedData.xml your your Menu is not being saved.\n" + e.Message,
-                "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Couldn't open or serealize the file MenuSavedData.xml your your Menu is not being saved.\n" + e.Message,
+                    "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             }
 
@@ -89,10 +93,10 @@ namespace recreation_center
                 formatter.Serialize(stream, visitors);
                 stream.Close();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-            MessageBox.Show("Couldn't open or serealize the file VisitorSavedData.xml your your visitor is not being saved.\n" + e.Message,
-                "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Couldn't open or serealize the file VisitorSavedData.xml your your visitor is not being saved.\n" + e.Message,
+                    "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             }
 
@@ -140,10 +144,10 @@ namespace recreation_center
                     formatter.Serialize(stream, menuArr);
                     stream.Close();
                 }
-                catch(Exception err)
+                catch (Exception err)
                 {
-                MessageBox.Show("Couldn't open or deserealize the file  " + SaveFileDialog1.FileName + ".\n" + err.Message,
-                    "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Couldn't open or deserealize the file  " + SaveFileDialog1.FileName + ".\n" + err.Message,
+                        "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
@@ -159,10 +163,10 @@ namespace recreation_center
                     this.menuArr = newArr;
                 }
             }
-            catch(Exception err)
+            catch (Exception err)
             {
-            MessageBox.Show("Couldn't open or deserealize the file MenuSavedData.xml your Menu will be empty.\n" + err.Message,
-                "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Couldn't open or deserealize the file MenuSavedData.xml your Menu will be empty.\n" + err.Message,
+                    "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             XmlSerializer serializer1 = new XmlSerializer(typeof(List<Visitor>));
             try
@@ -172,10 +176,10 @@ namespace recreation_center
                     visitors = (List<Visitor>)serializer1.Deserialize(reader);
                 }
             }
-            catch(Exception err)
+            catch (Exception err)
             {
-            MessageBox.Show("Couldn't open or deserealize the file VisitorSavedData.xml your visitors will be empty.\n" + err.Message,
-                "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Couldn't open or deserealize the file VisitorSavedData.xml your visitors will be empty.\n" + err.Message,
+                    "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -246,24 +250,24 @@ namespace recreation_center
             OpenFileDialog dlg = new OpenFileDialog();
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                try { 
-                using (StreamReader reader = new StreamReader(dlg.FileName))
-                {
-                    while (!reader.EndOfStream)
+                try {
+                    using (StreamReader reader = new StreamReader(dlg.FileName))
                     {
-                        string line = reader.ReadLine();
-                        string[] values = line.Split(',');
-                        Rates r = new Rates(values.Skip(1).ToList().Select(int.Parse).ToList());
+                        while (!reader.EndOfStream)
+                        {
+                            string line = reader.ReadLine();
+                            string[] values = line.Split(',');
+                            Rates r = new Rates(values.Skip(1).ToList().Select(int.Parse).ToList());
 
-                        GroupType gt = Enum.GetValues(typeof(GroupType)).Cast<GroupType>().First(item => item.AsString(EnumFormat.Description) == values[0]);
-                        m.groupArr.Add(new GroupRates(gt, r));
+                            GroupType gt = Enum.GetValues(typeof(GroupType)).Cast<GroupType>().First(item => item.AsString(EnumFormat.Description) == values[0]);
+                            m.groupArr.Add(new GroupRates(gt, r));
+                        }
                     }
                 }
-            }
-            catch(Exception err)
-            {
-                MessageBox.Show("Couldn't open or deserealize the file "+dlg.FileName + ".\n" + err.Message,
-                    "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                catch (Exception err)
+                {
+                    MessageBox.Show("Couldn't open or deserealize the file " + dlg.FileName + ".\n" + err.Message,
+                        "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             menuArr = m;
@@ -272,6 +276,12 @@ namespace recreation_center
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if(visitorNameBox.Text == "") 
+            {
+            MessageBox.Show("Visitor name can't be empty",
+                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if (completedBox.Checked)
             {
                 Visitor v = new Visitor(visitors.Count + 1, visitorNameBox.Text, (GroupType)ageGroupBox.SelectedIndex, DatePicker.Value, checkInBox.Value, checkOutBox.Value, isWeekendBox.Checked);
@@ -282,6 +292,8 @@ namespace recreation_center
                 this.visitors.Add(v);
             }
             RefreshRecords();
+            MessageBox.Show("Visitor Added",
+                "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void completedBox_CheckedChanged(object sender, EventArgs e)
@@ -425,39 +437,39 @@ namespace recreation_center
             {
                 try
                 {
-                using (StreamReader reader = new StreamReader(dlg.FileName))
-                {
-                    string line = reader.ReadLine();
-                    while (!reader.EndOfStream)
+                    using (StreamReader reader = new StreamReader(dlg.FileName))
                     {
-                        Visitor v = new Visitor();
-                        line = reader.ReadLine();
-                        string[] values = line.Split(',');
+                        string line = reader.ReadLine();
+                        while (!reader.EndOfStream)
+                        {
+                            Visitor v = new Visitor();
+                            line = reader.ReadLine();
+                            string[] values = line.Split(',');
 
-                        v.VisitorId = int.Parse(values[0]);
-                        v.Name = values[1];
-                        v.Type = Enum.GetValues(typeof(GroupType)).Cast<GroupType>().First(item => item.AsString(EnumFormat.Description) == values[2]);
-                        v.IsWeekend = bool.Parse(values[3]);
-                        v.Completed = bool.Parse(values[4]);
-                        v.InTime = DateTime.Parse(values[5]);
-                        v.Date = DateTime.Parse(values[7]);
-                        if (v.Completed)
-                        {
-                            v.OutTime = DateTime.Parse(values[6]);
-                            v.TotalFee = double.Parse(values[8]);
+                            v.VisitorId = int.Parse(values[0]);
+                            v.Name = values[1];
+                            v.Type = Enum.GetValues(typeof(GroupType)).Cast<GroupType>().First(item => item.AsString(EnumFormat.Description) == values[2]);
+                            v.IsWeekend = bool.Parse(values[3]);
+                            v.Completed = bool.Parse(values[4]);
+                            v.InTime = DateTime.Parse(values[5]);
+                            v.Date = DateTime.Parse(values[7]);
+                            if (v.Completed)
+                            {
+                                v.OutTime = DateTime.Parse(values[6]);
+                                v.TotalFee = double.Parse(values[8]);
+                            }
+                            else
+                            {
+                            }
+                            newVisitors.Add(v);
                         }
-                        else
-                        {
-                        }
-                        newVisitors.Add(v);
+
                     }
-
                 }
-            }
-            catch(Exception err)
-            {
-                MessageBox.Show("Couldn't open or deserealize the file "+dlg.FileName + ".\n" + err.Message,
-                    "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                catch (Exception err)
+                {
+                    MessageBox.Show("Couldn't open or deserealize the file " + dlg.FileName + ".\n" + err.Message,
+                        "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             visitors = newVisitors;
@@ -472,7 +484,7 @@ namespace recreation_center
 
         void refreshWeeklyChart()
         {
-            DateTime date = WeeklyDatePicker.Value.Date; 
+            DateTime date = WeeklyDatePicker.Value.Date;
             int year = date.Date.Year;
             DateTime firstDay = new DateTime(year, 1, 1);
             CultureInfo cul = CultureInfo.CurrentCulture;
@@ -480,11 +492,12 @@ namespace recreation_center
             int days = (weekNo - 1) * 7;
             DateTime dt1 = firstDay.AddDays(days);
             DayOfWeek dow = dt1.DayOfWeek;
+
             DateTime startDateOfWeek = dt1.AddDays(-(int)dow);
             DateTime endDateOfWeek = startDateOfWeek.AddDays(6);
 
             StartDateLabel.Text = startDateOfWeek.ToShortDateString();
-            EndDateLabel.Text   = endDateOfWeek.ToShortDateString();
+            EndDateLabel.Text = endDateOfWeek.ToShortDateString();
 
             DateTime currDate = startDateOfWeek;
 
@@ -500,15 +513,15 @@ namespace recreation_center
             chart2.ChartAreas[0].AxisX.IsMarginVisible = false;
 
             double totalIncomeDouble = 0;
-            foreach (Visitor v in visitors) if (v.Date <= startDateOfWeek.Date  && v.Date >= endDateOfWeek.Date  )
-            {
-                totalIncomeDouble += v.TotalFee;
-            }
+            foreach (Visitor v in visitors) if (v.Date <= startDateOfWeek.Date && v.Date >= endDateOfWeek.Date)
+                {
+                    totalIncomeDouble += v.TotalFee;
+                }
 
 
             List<WeekInfo> weeks = new List<WeekInfo>();
 
-            while(currDate.Date <= endDateOfWeek)
+            while (currDate.Date <= endDateOfWeek)
             {
 
                 int count = 0;
@@ -532,7 +545,7 @@ namespace recreation_center
 
             if (isIncomeSort)
             {
-                weeks = BubbleSortClass.BubbleSort(weeks,  BubbleSortClass.CompareIncome);
+                weeks = BubbleSortClass.BubbleSort(weeks, BubbleSortClass.CompareIncome);
             }
             else
             {
@@ -541,17 +554,17 @@ namespace recreation_center
 
             foreach (WeekInfo week in weeks)
             {
-                Series series = this.chart2.Series.Add(week.Name + " "+ (isIncomeSort ? week.TotalIncome : week.NumOfVisitors));
+                Series series = this.chart2.Series.Add(week.Name + " " + (isIncomeSort ? week.TotalIncome : week.NumOfVisitors));
                 series["PixelPointWidth"] = "400";
                 series.Points.Add(isIncomeSort ? week.TotalIncome : week.NumOfVisitors);
                 series.ChartType = SeriesChartType.Bar;
             }
-                //chart1.ChartAreas[0].AxisX.Maximum = menuArr.groupArr.Count;
-                chart2.ChartAreas[0].AxisX.Minimum = 0;
-                
-                chart2.ChartAreas[0].AxisY.Maximum = weeks.Max(i => (isIncomeSort ? i.TotalIncome : i.NumOfVisitors));
-                chart2.ChartAreas[0].AxisY.Minimum = 0;
-                //TotalIncome.Text = totalIncomeDouble.ToString();
+            //chart1.ChartAreas[0].AxisX.Maximum = menuArr.groupArr.Count;
+            chart2.ChartAreas[0].AxisX.Minimum = 0;
+
+            chart2.ChartAreas[0].AxisY.Maximum = weeks.Max(i => (isIncomeSort ? i.TotalIncome : i.NumOfVisitors));
+            chart2.ChartAreas[0].AxisY.Minimum = 0;
+            //TotalIncome.Text = totalIncomeDouble.ToString();
 
         }
 
@@ -572,6 +585,13 @@ namespace recreation_center
         {
             this.isIncomeSort = ByTotalIncome.Checked;
             refreshWeeklyChart();
+        }
+
+        private void UpdatePercent_Click(object sender, EventArgs e)
+        {
+            this.menuArr.weekendPercent = int.Parse(WeekendPercent.Value.ToString());
+            MessageBox.Show("Weekend Extra percent updated.\n",
+                "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

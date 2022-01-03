@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace recreation_center
 {
+    /*
+     * The weekinfo class helps to sort the visitor data for the weekly report
+     * The Name contains the name of the day of the week e.g. Sunday, Monday etc.
+     */
     public class WeekInfo
     {
         public string Name { get; set; } 
@@ -25,6 +29,10 @@ namespace recreation_center
         public delegate bool Comparator(WeekInfo a,WeekInfo b);
 
 
+        /*
+         * THe bubble sort sorts a list of WeekInfo 
+         * It takes another argument cmp which decides which day is greator 
+         */
         public static List<WeekInfo> BubbleSort(List<WeekInfo>  days, Comparator cmp)
         {
             for(int i = days.Count -1; i > 0 ; i--)
@@ -33,6 +41,7 @@ namespace recreation_center
                 {
                     if(cmp(days[j], days[j + 1]))
                     {
+                        //Swap
                         WeekInfo tmp = days[j];
                         days[j] = days[j + 1];
                         days[j + 1] = tmp;
@@ -42,11 +51,13 @@ namespace recreation_center
             return days;
         }
 
+        // tells if a's totalIncomde is greator than b's totalIncome
         public static bool CompareIncome(WeekInfo a,WeekInfo b)
         {
             return a.TotalIncome > b.TotalIncome;
         }
 
+        // tells if a's number Of visitor is greator than b's Number of visitor
         public static bool CompareNumOfVisitors(WeekInfo a,WeekInfo b)
         {
             return a.NumOfVisitors > b.NumOfVisitors;

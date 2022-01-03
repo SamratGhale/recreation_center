@@ -6,7 +6,7 @@
       <Rate>
         <One_hr>245</One_hr>
         <Two_hr>5453</Two_hr>
-        <Four_hr>0</Four_hr>
+        <Four_hr>500</Four_hr>
         <Whole_day>0</Whole_day>
       </Rate>
     </GroupRates>
@@ -74,4 +74,5 @@
       </Rate>
     </GroupRates>
   </groupArr>
+  <weekendPercent>20</weekendPercent>
 </GroupsArray>

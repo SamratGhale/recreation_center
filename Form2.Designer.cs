@@ -32,12 +32,12 @@ namespace recreation_center
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.loggedIn = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.userNameLabel = new System.Windows.Forms.Label();
@@ -59,6 +59,9 @@ namespace recreation_center
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.UpdatePercent = new System.Windows.Forms.Button();
+            this.WeekendPercent = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
             this.refreshButton = new System.Windows.Forms.Button();
             this.MenuTable = new System.Windows.Forms.DataGridView();
             this.TicketRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -114,6 +117,7 @@ namespace recreation_center
             this.MainTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.WeekendPercent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MenuTable)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VisitorTable)).BeginInit();
@@ -334,6 +338,9 @@ namespace recreation_center
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.UpdatePercent);
+            this.tabPage2.Controls.Add(this.WeekendPercent);
+            this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.refreshButton);
             this.tabPage2.Controls.Add(this.MenuTable);
             this.tabPage2.Controls.Add(this.UpdateMenu);
@@ -345,6 +352,32 @@ namespace recreation_center
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Menu";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // UpdatePercent
+            // 
+            this.UpdatePercent.Location = new System.Drawing.Point(183, 335);
+            this.UpdatePercent.Name = "UpdatePercent";
+            this.UpdatePercent.Size = new System.Drawing.Size(102, 26);
+            this.UpdatePercent.TabIndex = 8;
+            this.UpdatePercent.Text = "Update";
+            this.UpdatePercent.UseVisualStyleBackColor = true;
+            this.UpdatePercent.Click += new System.EventHandler(this.UpdatePercent_Click);
+            // 
+            // WeekendPercent
+            // 
+            this.WeekendPercent.Location = new System.Drawing.Point(284, 286);
+            this.WeekendPercent.Name = "WeekendPercent";
+            this.WeekendPercent.Size = new System.Drawing.Size(120, 27);
+            this.WeekendPercent.TabIndex = 7;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(39, 288);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(219, 19);
+            this.label10.TabIndex = 6;
+            this.label10.Text = "Weekend Extra Percent";
             // 
             // refreshButton
             // 
@@ -531,16 +564,18 @@ namespace recreation_center
             // 
             // chart1
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend1.IsTextAutoFit = false;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(6, 24);
             this.chart1.Name = "chart1";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chart1.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(826, 471);
             this.chart1.TabIndex = 4;
             this.chart1.Text = "chart1";
@@ -673,20 +708,20 @@ namespace recreation_center
             // 
             // chart2
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea4);
-            legend4.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            legend4.IsTextAutoFit = false;
-            legend4.Name = "Legend1";
-            this.chart2.Legends.Add(legend4);
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
+            legend2.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend2.IsTextAutoFit = false;
+            legend2.Name = "Legend1";
+            this.chart2.Legends.Add(legend2);
             this.chart2.Location = new System.Drawing.Point(31, 56);
             this.chart2.Name = "chart2";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
-            series4.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chart2.Series.Add(series4);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            series2.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart2.Series.Add(series2);
             this.chart2.Size = new System.Drawing.Size(828, 462);
             this.chart2.TabIndex = 0;
             this.chart2.Text = "chart2";
@@ -816,6 +851,8 @@ namespace recreation_center
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.WeekendPercent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MenuTable)).EndInit();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.VisitorTable)).EndInit();
@@ -908,5 +945,8 @@ namespace recreation_center
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton ByTotalIncome;
         private System.Windows.Forms.RadioButton ByVisitor;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown WeekendPercent;
+        private System.Windows.Forms.Button UpdatePercent;
     }
 }
