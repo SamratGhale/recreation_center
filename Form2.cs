@@ -36,11 +36,14 @@ namespace recreation_center
             menuArr = new GroupsArray();
             visitors = new List<Visitor>();
             menuArr.initilizeWithZero();
+            
             if (userName != "Admin")
             {
                 UpdateMenu.Enabled = false;
                 refreshButton.Enabled = false;
                 menuItem4.Enabled = false;
+            }else
+            {
             }
             foreach (GroupRates gr in menuArr.groupArr)
             {
@@ -57,10 +60,19 @@ namespace recreation_center
         }
 
         void RefreshMenu() {
-            Stream stream = new FileStream("../../../MenuSavedData.xml", FileMode.Create, FileAccess.Write);
-            XmlSerializer formatter = new XmlSerializer(typeof(GroupsArray));
-            formatter.Serialize(stream, menuArr);
-            stream.Close();
+            try
+            {
+                Stream stream = new FileStream("../../../MenuSavedData.xml", FileMode.Create, FileAccess.Write);
+                XmlSerializer formatter = new XmlSerializer(typeof(GroupsArray));
+                formatter.Serialize(stream, menuArr);
+                stream.Close();
+            }
+            catch(Exception e)
+            {
+            MessageBox.Show("Couldn't open or serealize the file MenuSavedData.xml your your Menu is not being saved.\n" + e.Message,
+                "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
 
             MenuTable.Rows.Clear();
             foreach (GroupRates gr in menuArr.groupArr)
@@ -70,18 +82,24 @@ namespace recreation_center
         }
 
         void RefreshRecords() {
-            Stream stream = new FileStream("../../../VisitorSavedData.xml", FileMode.Create, FileAccess.Write);
-            XmlSerializer formatter = new XmlSerializer(typeof(List<Visitor>));
-            formatter.Serialize(stream, visitors);
-            stream.Close();
+            try
+            {
+                Stream stream = new FileStream("../../../VisitorSavedData.xml", FileMode.Create, FileAccess.Write);
+                XmlSerializer formatter = new XmlSerializer(typeof(List<Visitor>));
+                formatter.Serialize(stream, visitors);
+                stream.Close();
+            }
+            catch(Exception e)
+            {
+            MessageBox.Show("Couldn't open or serealize the file VisitorSavedData.xml your your visitor is not being saved.\n" + e.Message,
+                "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
 
             VisitorTable.Rows.Clear();
             foreach (Visitor vr in visitors)
             {
                 VisitorTable.Rows.Add(vr.getValues());
-                if (vr.Completed)
-                {
-                }
             }
         }
 
@@ -115,25 +133,49 @@ namespace recreation_center
             SaveFileDialog1.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
             if (SaveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                Stream stream = new FileStream(SaveFileDialog1.FileName.ToString(), FileMode.Create, FileAccess.Write);
-                XmlSerializer formatter = new XmlSerializer(typeof(GroupsArray));
-                formatter.Serialize(stream, menuArr);
-                stream.Close();
+                try
+                {
+                    Stream stream = new FileStream(SaveFileDialog1.FileName.ToString(), FileMode.Create, FileAccess.Write);
+                    XmlSerializer formatter = new XmlSerializer(typeof(GroupsArray));
+                    formatter.Serialize(stream, menuArr);
+                    stream.Close();
+                }
+                catch(Exception err)
+                {
+                MessageBox.Show("Couldn't open or deserealize the file  " + SaveFileDialog1.FileName + ".\n" + err.Message,
+                    "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
         void init() {
 
             XmlSerializer serializer = new XmlSerializer(typeof(GroupsArray));
-            using (Stream reader = new FileStream("../../../MenuSavedData.xml", FileMode.Open, FileAccess.Read))
+            try
             {
-                GroupsArray newArr = (GroupsArray)serializer.Deserialize(reader);
-                this.menuArr = newArr;
+                using (Stream reader = new FileStream("../../../MenuSavedData.xml", FileMode.Open, FileAccess.Read))
+                {
+                    GroupsArray newArr = (GroupsArray)serializer.Deserialize(reader);
+                    this.menuArr = newArr;
+                }
+            }
+            catch(Exception err)
+            {
+            MessageBox.Show("Couldn't open or deserealize the file MenuSavedData.xml your Menu will be empty.\n" + err.Message,
+                "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             XmlSerializer serializer1 = new XmlSerializer(typeof(List<Visitor>));
-            using (Stream reader = new FileStream("../../../VisitorSavedData.xml", FileMode.Open, FileAccess.Read))
+            try
             {
-                visitors = (List<Visitor>)serializer1.Deserialize(reader);
+                using (Stream reader = new FileStream("../../../VisitorSavedData.xml", FileMode.Open, FileAccess.Read))
+                {
+                    visitors = (List<Visitor>)serializer1.Deserialize(reader);
+                }
+            }
+            catch(Exception err)
+            {
+            MessageBox.Show("Couldn't open or deserealize the file VisitorSavedData.xml your visitors will be empty.\n" + err.Message,
+                "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -204,6 +246,7 @@ namespace recreation_center
             OpenFileDialog dlg = new OpenFileDialog();
             if (dlg.ShowDialog() == DialogResult.OK)
             {
+                try { 
                 using (StreamReader reader = new StreamReader(dlg.FileName))
                 {
                     while (!reader.EndOfStream)
@@ -215,6 +258,12 @@ namespace recreation_center
                         GroupType gt = Enum.GetValues(typeof(GroupType)).Cast<GroupType>().First(item => item.AsString(EnumFormat.Description) == values[0]);
                         m.groupArr.Add(new GroupRates(gt, r));
                     }
+                }
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show("Couldn't open or deserealize the file "+dlg.FileName + ".\n" + err.Message,
+                    "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             menuArr = m;
@@ -374,6 +423,8 @@ namespace recreation_center
             OpenFileDialog dlg = new OpenFileDialog();
             if (dlg.ShowDialog() == DialogResult.OK)
             {
+                try
+                {
                 using (StreamReader reader = new StreamReader(dlg.FileName))
                 {
                     string line = reader.ReadLine();
@@ -401,6 +452,12 @@ namespace recreation_center
                         newVisitors.Add(v);
                     }
 
+                }
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show("Couldn't open or deserealize the file "+dlg.FileName + ".\n" + err.Message,
+                    "Close Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             visitors = newVisitors;
@@ -473,10 +530,9 @@ namespace recreation_center
                 index += 1;
             }
 
-            //For another for loop
             if (isIncomeSort)
             {
-                weeks = BubbleSortClass.BubbleSort(weeks, BubbleSortClass.CompareIncome);
+                weeks = BubbleSortClass.BubbleSort(weeks,  BubbleSortClass.CompareIncome);
             }
             else
             {
